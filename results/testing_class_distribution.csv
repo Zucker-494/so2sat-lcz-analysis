@@ -3,7 +3,7 @@ testing,guangzhou,1,1,Compact high-rise,10
 testing,guangzhou,2,2,Compact midrise,163
 testing,guangzhou,3,3,Compact low-rise,95
 testing,guangzhou,4,4,Open high-rise,157
-testing,guangzhou,5,5,Open midrise,111
+testing,guangzhou,5,5,Open mid-rise,111
 testing,guangzhou,6,6,Open low-rise,59
 testing,guangzhou,7,7,Lightweight low-rise,62
 testing,guangzhou,8,8,Large low-rise,562
@@ -19,7 +19,7 @@ testing,jakarta,1,1,Compact high-rise,34
 testing,jakarta,2,2,Compact midrise,5
 testing,jakarta,3,3,Compact low-rise,745
 testing,jakarta,4,4,Open high-rise,8
-testing,jakarta,5,5,Open midrise,7
+testing,jakarta,5,5,Open mid-rise,7
 testing,jakarta,6,6,Open low-rise,77
 testing,jakarta,7,7,Lightweight low-rise,70
 testing,jakarta,8,8,Large low-rise,605
@@ -34,7 +34,7 @@ testing,jakarta,17,G,Water,268
 testing,moscow,2,2,Compact midrise,166
 testing,moscow,3,3,Compact low-rise,6
 testing,moscow,4,4,Open high-rise,433
-testing,moscow,5,5,Open midrise,216
+testing,moscow,5,5,Open mid-rise,216
 testing,moscow,6,6,Open low-rise,59
 testing,moscow,7,7,Lightweight low-rise,7
 testing,moscow,8,8,Large low-rise,168
@@ -51,7 +51,7 @@ testing,mumbai,1,1,Compact high-rise,14
 testing,mumbai,2,2,Compact midrise,217
 testing,mumbai,3,3,Compact low-rise,33
 testing,mumbai,4,4,Open high-rise,165
-testing,mumbai,5,5,Open midrise,174
+testing,mumbai,5,5,Open mid-rise,174
 testing,mumbai,6,6,Open low-rise,9
 testing,mumbai,7,7,Lightweight low-rise,141
 testing,mumbai,8,8,Large low-rise,187
@@ -66,7 +66,7 @@ testing,mumbai,16,F,Bare soil or sand,19
 testing,mumbai,17,G,Water,317
 testing,munich,2,2,Compact midrise,169
 testing,munich,4,4,Open high-rise,12
-testing,munich,5,5,Open midrise,180
+testing,munich,5,5,Open mid-rise,180
 testing,munich,6,6,Open low-rise,379
 testing,munich,8,8,Large low-rise,365
 testing,munich,9,9,Sparsely built,69
@@ -94,7 +94,7 @@ testing,sanfrancisco,1,1,Compact high-rise,47
 testing,sanfrancisco,2,2,Compact midrise,51
 testing,sanfrancisco,3,3,Compact low-rise,518
 testing,sanfrancisco,4,4,Open high-rise,1
-testing,sanfrancisco,5,5,Open midrise,13
+testing,sanfrancisco,5,5,Open mid-rise,13
 testing,sanfrancisco,6,6,Open low-rise,162
 testing,sanfrancisco,8,8,Large low-rise,430
 testing,sanfrancisco,9,9,Sparsely built,59
@@ -110,7 +110,7 @@ testing,santiago,1,1,Compact high-rise,93
 testing,santiago,2,2,Compact midrise,16
 testing,santiago,3,3,Compact low-rise,300
 testing,santiago,4,4,Open high-rise,16
-testing,santiago,5,5,Open midrise,25
+testing,santiago,5,5,Open mid-rise,25
 testing,santiago,6,6,Open low-rise,96
 testing,santiago,8,8,Large low-rise,165
 testing,santiago,9,9,Sparsely built,522
@@ -125,7 +125,7 @@ testing,sydney,1,1,Compact high-rise,18
 testing,sydney,2,2,Compact midrise,24
 testing,sydney,3,3,Compact low-rise,425
 testing,sydney,4,4,Open high-rise,1
-testing,sydney,5,5,Open midrise,3
+testing,sydney,5,5,Open mid-rise,3
 testing,sydney,6,6,Open low-rise,415
 testing,sydney,7,7,Lightweight low-rise,2
 testing,sydney,8,8,Large low-rise,274
@@ -141,7 +141,7 @@ testing,tehran,1,1,Compact high-rise,31
 testing,tehran,2,2,Compact midrise,367
 testing,tehran,3,3,Compact low-rise,161
 testing,tehran,4,4,Open high-rise,64
-testing,tehran,5,5,Open midrise,34
+testing,tehran,5,5,Open mid-rise,34
 testing,tehran,6,6,Open low-rise,143
 testing,tehran,8,8,Large low-rise,379
 testing,tehran,9,9,Sparsely built,70

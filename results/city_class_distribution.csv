@@ -3,7 +3,7 @@ guangzhou,1,1,Compact high-rise,20
 guangzhou,2,2,Compact midrise,325
 guangzhou,3,3,Compact low-rise,194
 guangzhou,4,4,Open high-rise,314
-guangzhou,5,5,Open midrise,223
+guangzhou,5,5,Open mid-rise,223
 guangzhou,6,6,Open low-rise,138
 guangzhou,7,7,Lightweight low-rise,114
 guangzhou,8,8,Large low-rise,1115
@@ -19,7 +19,7 @@ jakarta,1,1,Compact high-rise,58
 jakarta,2,2,Compact midrise,8
 jakarta,3,3,Compact low-rise,1332
 jakarta,4,4,Open high-rise,13
-jakarta,5,5,Open midrise,12
+jakarta,5,5,Open mid-rise,12
 jakarta,6,6,Open low-rise,125
 jakarta,7,7,Lightweight low-rise,121
 jakarta,8,8,Large low-rise,1116
@@ -34,7 +34,7 @@ jakarta,17,G,Water,612
 moscow,2,2,Compact midrise,330
 moscow,3,3,Compact low-rise,12
 moscow,4,4,Open high-rise,861
-moscow,5,5,Open midrise,429
+moscow,5,5,Open mid-rise,429
 moscow,6,6,Open low-rise,117
 moscow,7,7,Lightweight low-rise,13
 moscow,8,8,Large low-rise,334
@@ -51,7 +51,7 @@ mumbai,1,1,Compact high-rise,28
 mumbai,2,2,Compact midrise,434
 mumbai,3,3,Compact low-rise,66
 mumbai,4,4,Open high-rise,330
-mumbai,5,5,Open midrise,347
+mumbai,5,5,Open mid-rise,347
 mumbai,6,6,Open low-rise,18
 mumbai,7,7,Lightweight low-rise,281
 mumbai,8,8,Large low-rise,373
@@ -67,7 +67,7 @@ mumbai,17,G,Water,633
 munich,2,2,Compact midrise,336
 munich,3,3,Compact low-rise,3
 munich,4,4,Open high-rise,24
-munich,5,5,Open midrise,359
+munich,5,5,Open mid-rise,359
 munich,6,6,Open low-rise,765
 munich,8,8,Large low-rise,727
 munich,9,9,Sparsely built,138
@@ -95,7 +95,7 @@ sanfrancisco,1,1,Compact high-rise,93
 sanfrancisco,2,2,Compact midrise,101
 sanfrancisco,3,3,Compact low-rise,1074
 sanfrancisco,4,4,Open high-rise,2
-sanfrancisco,5,5,Open midrise,26
+sanfrancisco,5,5,Open mid-rise,26
 sanfrancisco,6,6,Open low-rise,292
 sanfrancisco,8,8,Large low-rise,867
 sanfrancisco,9,9,Sparsely built,126
@@ -111,7 +111,7 @@ santiago,1,1,Compact high-rise,187
 santiago,2,2,Compact midrise,33
 santiago,3,3,Compact low-rise,601
 santiago,4,4,Open high-rise,32
-santiago,5,5,Open midrise,51
+santiago,5,5,Open mid-rise,51
 santiago,6,6,Open low-rise,193
 santiago,8,8,Large low-rise,332
 santiago,9,9,Sparsely built,1016
@@ -126,7 +126,7 @@ sydney,1,1,Compact high-rise,36
 sydney,2,2,Compact midrise,48
 sydney,3,3,Compact low-rise,850
 sydney,4,4,Open high-rise,2
-sydney,5,5,Open midrise,5
+sydney,5,5,Open mid-rise,5
 sydney,6,6,Open low-rise,830
 sydney,7,7,Lightweight low-rise,4
 sydney,8,8,Large low-rise,548
@@ -142,7 +142,7 @@ tehran,1,1,Compact high-rise,62
 tehran,2,2,Compact midrise,733
 tehran,3,3,Compact low-rise,321
 tehran,4,4,Open high-rise,128
-tehran,5,5,Open midrise,68
+tehran,5,5,Open mid-rise,68
 tehran,6,6,Open low-rise,286
 tehran,8,8,Large low-rise,757
 tehran,9,9,Sparsely built,140

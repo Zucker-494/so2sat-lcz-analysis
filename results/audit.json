@@ -40,7 +40,11 @@
       32737,
       32748,
       32756
-    ]
+    ],
+    "patch_pixels": 32,
+    "pixel_size_m": 10.0,
+    "patch_size_m": 320.0,
+    "centre_logic": "official So2Sat save_geotiff.py: upper-left origin plus half of 32x10m"
   },
   "testing": {
     "split": "testing",
@@ -83,6 +87,10 @@
       32737,
       32748,
       32756
-    ]
+    ],
+    "patch_pixels": 32,
+    "pixel_size_m": 10.0,
+    "patch_size_m": 320.0,
+    "centre_logic": "official So2Sat save_geotiff.py: upper-left origin plus half of 32x10m"
   }
 }

@@ -3,7 +3,7 @@ validation,guangzhou,1,1,Compact high-rise,10
 validation,guangzhou,2,2,Compact midrise,162
 validation,guangzhou,3,3,Compact low-rise,99
 validation,guangzhou,4,4,Open high-rise,157
-validation,guangzhou,5,5,Open midrise,112
+validation,guangzhou,5,5,Open mid-rise,112
 validation,guangzhou,6,6,Open low-rise,79
 validation,guangzhou,7,7,Lightweight low-rise,52
 validation,guangzhou,8,8,Large low-rise,553
@@ -18,7 +18,7 @@ validation,jakarta,1,1,Compact high-rise,24
 validation,jakarta,2,2,Compact midrise,3
 validation,jakarta,3,3,Compact low-rise,587
 validation,jakarta,4,4,Open high-rise,5
-validation,jakarta,5,5,Open midrise,5
+validation,jakarta,5,5,Open mid-rise,5
 validation,jakarta,6,6,Open low-rise,48
 validation,jakarta,7,7,Lightweight low-rise,51
 validation,jakarta,8,8,Large low-rise,511
@@ -33,7 +33,7 @@ validation,jakarta,17,G,Water,344
 validation,moscow,2,2,Compact midrise,164
 validation,moscow,3,3,Compact low-rise,6
 validation,moscow,4,4,Open high-rise,428
-validation,moscow,5,5,Open midrise,213
+validation,moscow,5,5,Open mid-rise,213
 validation,moscow,6,6,Open low-rise,58
 validation,moscow,7,7,Lightweight low-rise,6
 validation,moscow,8,8,Large low-rise,166
@@ -50,7 +50,7 @@ validation,mumbai,1,1,Compact high-rise,14
 validation,mumbai,2,2,Compact midrise,217
 validation,mumbai,3,3,Compact low-rise,33
 validation,mumbai,4,4,Open high-rise,165
-validation,mumbai,5,5,Open midrise,173
+validation,mumbai,5,5,Open mid-rise,173
 validation,mumbai,6,6,Open low-rise,9
 validation,mumbai,7,7,Lightweight low-rise,140
 validation,mumbai,8,8,Large low-rise,186
@@ -66,7 +66,7 @@ validation,mumbai,17,G,Water,316
 validation,munich,2,2,Compact midrise,167
 validation,munich,3,3,Compact low-rise,3
 validation,munich,4,4,Open high-rise,12
-validation,munich,5,5,Open midrise,179
+validation,munich,5,5,Open mid-rise,179
 validation,munich,6,6,Open low-rise,386
 validation,munich,8,8,Large low-rise,362
 validation,munich,9,9,Sparsely built,69
@@ -94,7 +94,7 @@ validation,sanfrancisco,1,1,Compact high-rise,46
 validation,sanfrancisco,2,2,Compact midrise,50
 validation,sanfrancisco,3,3,Compact low-rise,556
 validation,sanfrancisco,4,4,Open high-rise,1
-validation,sanfrancisco,5,5,Open midrise,13
+validation,sanfrancisco,5,5,Open mid-rise,13
 validation,sanfrancisco,6,6,Open low-rise,130
 validation,sanfrancisco,8,8,Large low-rise,437
 validation,sanfrancisco,9,9,Sparsely built,67
@@ -110,7 +110,7 @@ validation,santiago,1,1,Compact high-rise,94
 validation,santiago,2,2,Compact midrise,17
 validation,santiago,3,3,Compact low-rise,301
 validation,santiago,4,4,Open high-rise,16
-validation,santiago,5,5,Open midrise,26
+validation,santiago,5,5,Open mid-rise,26
 validation,santiago,6,6,Open low-rise,97
 validation,santiago,8,8,Large low-rise,167
 validation,santiago,9,9,Sparsely built,494
@@ -125,7 +125,7 @@ validation,sydney,1,1,Compact high-rise,18
 validation,sydney,2,2,Compact midrise,24
 validation,sydney,3,3,Compact low-rise,425
 validation,sydney,4,4,Open high-rise,1
-validation,sydney,5,5,Open midrise,2
+validation,sydney,5,5,Open mid-rise,2
 validation,sydney,6,6,Open low-rise,415
 validation,sydney,7,7,Lightweight low-rise,2
 validation,sydney,8,8,Large low-rise,274
@@ -141,7 +141,7 @@ validation,tehran,1,1,Compact high-rise,31
 validation,tehran,2,2,Compact midrise,366
 validation,tehran,3,3,Compact low-rise,160
 validation,tehran,4,4,Open high-rise,64
-validation,tehran,5,5,Open midrise,34
+validation,tehran,5,5,Open mid-rise,34
 validation,tehran,6,6,Open low-rise,143
 validation,tehran,8,8,Large low-rise,378
 validation,tehran,9,9,Sparsely built,70
