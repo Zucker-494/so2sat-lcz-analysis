@@ -126,8 +126,7 @@ def main():
          ))
     agg.to_csv(out/"aggregate_frontier.csv",index=False)
 
-    # Diagnostic only: identify whether a feasible region exists under explicit
-    # mean-accuracy constraints. This is NOT a leakage-free final selection.
+    # Identify alpha values that satisfy the mean accuracy limits.
     selected=[]
     for model_name,g in agg.groupby("model"):
         base=g[g.alpha==0.0].iloc[0]
