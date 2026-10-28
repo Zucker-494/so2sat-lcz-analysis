@@ -56,8 +56,7 @@ def main():
         for _, r in samples.iterrows()
     ], dtype=object)
 
-    # Use a WGS84 STRtree to find candidate patch/building intersections
-    # before projecting building geometries. This keeps memory bounded.
+    # Candidate intersections are identified in WGS84 before building geometries are projected.
     to_wgs84 = Transformer.from_crs(epsg, 4326, always_xy=True)
     to_proj = Transformer.from_crs(4326, epsg, always_xy=True)
     patch_wgs84 = shp_transform(
@@ -91,7 +90,7 @@ def main():
             geoms_wgs84 = geoms_wgs84.copy()
             geoms_wgs84[~validity] = make_valid(geoms_wgs84[~validity])
 
-        # Query all building geometries in the current batch against fixed patches.
+        # Identify buildings intersecting the fixed LCZ patches.
         pairs = patch_tree.query(geoms_wgs84, predicate="intersects")
         if pairs.shape[1] == 0:
             continue
@@ -99,7 +98,7 @@ def main():
         building_idx = pairs[0]
         patch_idx = pairs[1]
 
-        # Project only buildings that actually touch at least one LCZ patch.
+        # Project buildings that intersect at least one LCZ patch.
         unique_building_idx, inverse = np.unique(building_idx, return_inverse=True)
         relevant_proj = shp_transform(
             geoms_wgs84[unique_building_idx],
@@ -122,7 +121,7 @@ def main():
         # Count intersecting building footprints per patch.
         np.add.at(building_counts, patch_idx, 1)
 
-        # Maintain one cumulative union geometry per patch so memory use stays bounded.
+        # Maintain one cumulative building union for each patch.
         for pidx in np.unique(patch_idx):
             parts = clipped[patch_idx == pidx]
             batch_union = union_all(parts)
