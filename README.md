@@ -1,45 +1,68 @@
-# so2sat-lcz-analysis
+# Spatial zoning sensitivity in LCZ classification
 
-Reproducible GIScience experiments on spatial partition effects in urban morphology and Local Climate Zone (LCZ) classification.
-
-## Current stage
-
-The repository is currently used for **data qualification and matching before model development**.
-
-The first automated workflow downloads the public So2Sat-LCZ42 V4 validation and testing archives from Hugging Face, extracts only the LCZ labels and geolocation metadata, and writes lightweight per-city CSV files. Large Sentinel-1/2 arrays are not retained.
+This repository contains data, code, results, and figures for a GIScience study of how alternative internal zonings affect urban morphology based Local Climate Zone (LCZ) classification when the physical analysis unit remains fixed.
 
 ## Research question
 
-How strongly can an artificial spatial partition change urban morphology / LCZ predictions when the underlying geographic objects remain unchanged, and can spatially informed modelling reduce partition-induced errors without removing genuine geographic differences?
+How much can LCZ predictions change when the same 320 m × 320 m urban patch is represented by different internal zonings, and how can this sensitivity be reduced while preserving predictive accuracy across cities?
+
+## Spatial design
+
+Each So2Sat LCZ42 patch is kept fixed in extent, building content, reference label, and nominal scale. Only the internal zoning is changed.
+
+The discrete representation divides each patch into a 4 × 4 grid and summarizes building morphology within the 16 cells. Nine zoning configurations are evaluated. A continuous spatial representation based on fixed anchors provides an alternative description of the same building set.
+
+The analysis focuses on built LCZ classes 1–10.
 
 ## Data
 
-So2Sat-LCZ42 V4:
-- 17 LCZ classes
-- validation: western halves of 10 held-out cities
-- testing: eastern halves of the same 10 held-out cities
-- geolocation metadata: city, EPSG, and TFW parameters
+LCZ labels and geolocation information come from So2Sat LCZ42 V4. Building footprints come from Overture Maps.
 
-Source:
+So2Sat LCZ42:
 - https://github.com/zhu-xlab/So2Sat-LCZ42
 - https://huggingface.co/datasets/zhu-xlab/So2Sat-LCZ42
 
-## Repository outputs
+## Main measure
 
-After the extraction workflow finishes:
+Partition Induced Error Rate (PIER) records whether the correctness of a prediction for the same physical patch changes across zoning configurations.
 
-- `results/samples/validation/<city>.csv`
-- `results/samples/testing/<city>.csv`
-- `results/validation_class_distribution.csv`
-- `results/testing_class_distribution.csv`
-- `results/city_class_distribution.csv`
-- `results/split_summary.csv`
-- `results/audit.json`
+For patch i and zoning z,
 
-Each per-city file contains the original sample index, LCZ class, EPSG code, projected patch centre, and WGS84 longitude/latitude.
+C_i(z) = I(ŷ_i(z) = y_i)
 
-## Important methodological rule
+and
 
-The LCZ patch is the fixed prediction/evaluation unit. Building and street data will later provide urban-form features. Spatial partitions will alter how contextual features are organized, while the geographic evaluation unit and reference LCZ label remain fixed.
+S_i = I(max_z C_i(z) ≠ min_z C_i(z)).
 
-No predictive model should be developed until the city coverage, class balance, coordinates, and matching feasibility have passed this data gate.
+PIER is the mean of S_i across patches.
+
+The analysis also reports correct to wrong transitions, prediction disagreement, accuracy, balanced accuracy, and macro F1.
+
+## Validation across cities
+
+Model selection is nested by city. For each outer city, the remaining cities are used to select the weighting parameter α. The selected value minimizes PIER while limiting the largest accuracy loss observed among the inner validation cities.
+
+The primary accuracy loss limit is 0.5 percentage points.
+
+## Main result
+
+For HistGradientBoosting with the 0.5 percentage point limit, all ten outer cities remain within the specified accuracy loss. PIER decreases in all ten cities.
+
+Mean values across cities:
+
+- accuracy: 53.205% to 53.390%;
+- balanced accuracy: 43.779% to 44.228%;
+- macro F1: 34.614% to 34.853%;
+- PIER: 31.605% to 27.856%;
+- correct to wrong rate: 16.672% to 14.504%;
+- prediction disagreement: 42.043% to 37.281%.
+
+## Repository structure
+
+- `benchmark/`: spatial prediction analyses;
+- `method/`: construction of zoning based spatial features;
+- `qc/`: checks of building coverage and geometry;
+- `results/`: tabular results;
+- `analysis/`: manuscript figure generation;
+- `figures/final/`: final PNG figures;
+- `docs/`: current method description and literature position.
