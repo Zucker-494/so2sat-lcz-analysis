@@ -1,4 +1,4 @@
-name: Extract So2Sat LCZ labels
+name: Prepare So2Sat LCZ samples
 
 on:
   workflow_dispatch:
