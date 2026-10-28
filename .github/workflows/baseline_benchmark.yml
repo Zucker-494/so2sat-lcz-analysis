@@ -1,0 +1,104 @@
+name: Benchmark zoning robustness baselines
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/**"
+      - ".github/workflows/baseline_benchmark.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  features:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        city: [guangzhou, mumbai, munich, sanfrancisco]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install overturemaps pyarrow shapely pyproj pandas numpy scikit-learn
+
+      - name: Prepare directories
+        run: mkdir -p work/features work/buildings
+
+      - name: Build city bbox
+        id: bbox
+        shell: bash
+        run: |
+          BBOX=$(python qc/build_city_bbox.py --city "${{ matrix.city }}")
+          echo "bbox=$BBOX" >> "$GITHUB_OUTPUT"
+
+      - name: Download buildings
+        run: |
+          overturemaps download             --bbox="${{ steps.bbox.outputs.bbox }}"             --type=building             --release=2026-10-21.0             -f geoparquet             -o "work/buildings/${{ matrix.city }}.parquet"
+
+      - name: Build zoning features
+        run: |
+          python method/build_zoning_features.py             --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/features/${{ matrix.city }}.parquet"
+
+      - name: Upload features
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-features-${{ matrix.city }}
+          path: |
+            work/features/${{ matrix.city }}.parquet
+            work/features/${{ matrix.city }}.json
+          retention-days: 7
+
+  benchmark:
+    needs: features
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install analysis dependencies
+        run: pip install pandas pyarrow scikit-learn numpy
+
+      - name: Download feature artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: benchmark-features-*
+          path: work/features
+          merge-multiple: true
+
+      - name: Run baseline benchmark
+        run: python benchmark/run_baseline_benchmark.py
+
+      - name: Commit benchmark outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/baseline_benchmark
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add zoning robustness baseline benchmark"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
