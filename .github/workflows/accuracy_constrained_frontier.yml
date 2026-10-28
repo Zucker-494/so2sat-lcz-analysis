@@ -1,4 +1,4 @@
-name: Test accuracy-constrained robustness frontier
+name: Analyze accuracy limits
 
 on:
   workflow_dispatch:
