@@ -1,4 +1,4 @@
-name: Paired hard-vs-continuous comparison
+name: Compare discrete and continuous representations
 
 on:
   workflow_dispatch:
