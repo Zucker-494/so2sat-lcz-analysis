@@ -44,9 +44,8 @@ def decode_city(values):
     return np.asarray(out)
 
 def patch_centres(tfw):
-    # Match the official So2Sat save_geotiff.py logic.
-    # The supplied TFW C/F values behave as the upper-left raster origin;
-    # the patch centre is therefore half of 32 * 10 m = 160 m from that origin.
+    # Follow the coordinate convention used by the official So2Sat script.
+    # TFW C/F gives the upper left raster origin; the patch centre is 160 m from that origin.
     A = tfw[:, 0]
     D = tfw[:, 1]
     B = tfw[:, 2]
