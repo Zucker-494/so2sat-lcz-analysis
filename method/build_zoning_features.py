@@ -11,7 +11,7 @@ from shapely import from_wkb, centroid, area, length, is_empty, is_valid, make_v
 from shapely.strtree import STRtree
 from shapely import box
 
-# canonical + 8 deterministic zoning perturbations (same 4x4 scale, different cut locations)
+# Canonical zoning plus eight alternatives at the same 4 × 4 scale.
 ZONINGS = {
     "z0": ([80,160,240],[80,160,240]),
     "z1": ([65,160,245],[80,160,240]),
@@ -56,7 +56,7 @@ def main():
     ],dtype=object)
     tree=STRtree(patch_geoms)
 
-    # accumulators: zoning x patch x cell x metrics
+    # Array dimensions: zoning, patch, cell, and morphology measure.
     nz=len(ZONINGS); npatch=len(samples); nc=16
     count=np.zeros((nz,npatch,nc),dtype=np.int32)
     area_sum=np.zeros((nz,npatch,nc),dtype=np.float64)
@@ -84,7 +84,7 @@ def main():
             continue
         bi=pairs[0]; pi=pairs[1]
         cg=c[bi]; bg=gp[bi]
-        # relative centroid coordinates inside fixed patch
+        # Building centroid coordinates relative to the fixed patch.
         xs=np.asarray([geom.x for geom in cg])
         ys=np.asarray([geom.y for geom in cg])
         xmin=samples.iloc[pi]["x_min"].to_numpy(float)
