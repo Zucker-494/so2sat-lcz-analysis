@@ -1,0 +1,97 @@
+name: Paired hard-vs-continuous comparison
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/run_paired_comparison.py"
+      - ".github/workflows/paired_comparison.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  features:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        city: [guangzhou, mumbai, munich, sanfrancisco]
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install overturemaps pyarrow shapely pyproj pandas numpy scikit-learn
+      - name: Prepare directories
+        run: mkdir -p work/buildings work/hard work/continuous_sensitivity
+      - name: Build city bbox
+        id: bbox
+        shell: bash
+        run: |
+          BBOX=$(python qc/build_city_bbox.py --city "${{ matrix.city }}")
+          echo "bbox=$BBOX" >> "$GITHUB_OUTPUT"
+      - name: Download buildings
+        run: |
+          overturemaps download             --bbox="${{ steps.bbox.outputs.bbox }}"             --type=building             --release=2026-10-21.0             -f geoparquet             -o "work/buildings/${{ matrix.city }}.parquet"
+      - name: Build hard zoning features
+        run: |
+          python method/build_zoning_features.py             --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/hard/${{ matrix.city }}.parquet"
+      - name: Build continuous sensitivity features
+        run: |
+          python benchmark/build_continuous_sensitivity.py             --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/continuous_sensitivity/${{ matrix.city }}.parquet"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paired-${{ matrix.city }}
+          path: |
+            work/hard/${{ matrix.city }}.parquet
+            work/continuous_sensitivity/${{ matrix.city }}.parquet
+          retention-days: 7
+
+  compare:
+    needs: features
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: pip install pandas pyarrow numpy scikit-learn
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: paired-*
+          path: work/downloaded
+      - name: Reassemble feature directories
+        shell: bash
+        run: |
+          mkdir -p work/hard work/continuous_sensitivity
+          find work/downloaded -path "*/hard/*.parquet" -exec cp {} work/hard/ \;
+          find work/downloaded -path "*/continuous_sensitivity/*.parquet" -exec cp {} work/continuous_sensitivity/ \;
+          ls -lh work/hard work/continuous_sensitivity
+      - name: Run paired comparison
+        run: python benchmark/run_paired_comparison.py
+      - name: Commit results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/paired_comparison
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add paired hard-vs-continuous comparison"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
