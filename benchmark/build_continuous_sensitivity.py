@@ -19,7 +19,7 @@ BASE = np.array(
     dtype=np.float64,
 )
 
-# Fixed-scale anchor-position perturbations. All anchors remain inside the 320 m patch.
+# Anchor perturbations at a fixed spatial scale. All anchors remain inside the 320 m patch.
 ANCHOR_VARIANTS = {
     "a0": BASE,
     "x_p20": BASE + np.array([20.0, 0.0]),
