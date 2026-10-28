@@ -1,4 +1,4 @@
-name: Audit Overture building matches
+name: Check Overture building coverage
 
 on:
   workflow_dispatch:
