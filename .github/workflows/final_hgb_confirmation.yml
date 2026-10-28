@@ -1,0 +1,59 @@
+name: Final HGB accuracy-constrained confirmation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/run_final_hgb_confirmation.py"
+      - ".github/workflows/final_hgb_confirmation.yml"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  confirm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: pip install pandas pyarrow numpy scikit-learn
+      - name: Reuse validated feature artifacts
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 40742372425
+          pattern: robust-nested-*
+          path: work/downloaded
+      - name: Reassemble features
+        shell: bash
+        run: |
+          mkdir -p work/hard work/continuous_sensitivity
+          find work/downloaded -path "*/hard/*.parquet" -exec cp {} work/hard/ \;
+          find work/downloaded -path "*/continuous_sensitivity/*.parquet" -exec cp {} work/continuous_sensitivity/ \;
+          echo "hard files: $(find work/hard -name '*.parquet' | wc -l)"
+          echo "continuous files: $(find work/continuous_sensitivity -name '*.parquet' | wc -l)"
+      - name: Run final HGB confirmation
+        run: python benchmark/run_final_hgb_confirmation.py
+      - name: Commit results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/final_hgb_confirmation
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add final HGB robustness confirmation"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
