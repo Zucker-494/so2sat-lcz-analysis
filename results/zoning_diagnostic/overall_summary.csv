@@ -1,2 +1,2 @@
 cities,mean_canonical_accuracy,mean_worst_zoning_accuracy,mean_drop_pp,mean_pier,cities_pier_ge_5pct,cities_drop_ge_2pp
-4,0.2772277546238255,0.2772277546238255,0.0,0.0,0,0
+4,0.42014079261986326,0.41866103549382555,0.14797571260377063,0.21913388933787115,4,0
