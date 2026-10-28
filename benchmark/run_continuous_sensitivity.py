@@ -93,7 +93,7 @@ def main():
     rows = []
     variants = []
 
-    # Train only on the canonical continuous representation (anchors a0, bandwidth 55 m).
+    # Fit the model to the canonical continuous representation (anchors a0, bandwidth 55 m).
     canonical_train = df[(df.family == "anchor_position") & (df.variant == "a0")]
 
     for city in cities:
