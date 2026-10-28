@@ -106,7 +106,7 @@ jobs:
             echo "No QC result changes to commit."
             exit 0
           fi
-          git commit -m "Add four-city Overture building QC"
+          git commit -m "Add multi-city Overture building QC"
           for attempt in 1 2 3; do
             git fetch origin main
             git rebase origin/main
