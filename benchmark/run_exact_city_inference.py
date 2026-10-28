@@ -31,7 +31,7 @@ def exact_sign_test(diff, direction):
         k = int((nz > 0).sum())
     else:
         k = int((nz < 0).sum())
-    # One-sided exact Binomial(n, 0.5): P(X >= k)
+    # Exact binomial test, one sided: P(X >= k)
     probs = [math.comb(n, j) for j in range(k, n + 1)]
     p_one = sum(probs) / (2 ** n)
     return p_one, k, n
