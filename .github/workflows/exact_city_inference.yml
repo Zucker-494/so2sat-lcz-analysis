@@ -1,4 +1,4 @@
-name: Exact city-level inference
+name: City level inference
 
 on:
   workflow_dispatch:
