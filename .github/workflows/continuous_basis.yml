@@ -1,4 +1,4 @@
-name: Test continuous morphology basis
+name: Continuous spatial representation
 
 on:
   workflow_dispatch:
