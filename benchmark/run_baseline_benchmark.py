@@ -164,7 +164,7 @@ def main():
         test_z0 = test[test.zoning == "z0"].sort_values(["split", "sample_index"]).reset_index(drop=True)
 
         for model_name in ("hgb", "extra_trees"):
-            # Baseline 1: canonical zoning only.
+            # Reference 1: canonical zoning.
             row, zrows = evaluate_zoning_model(
                 make_model(model_name),
                 train_z0,
@@ -177,7 +177,7 @@ def main():
             summary.append(row)
             per_zoning.extend(zrows)
 
-            # Baseline 2: obvious multi-zoning augmentation.
+            # Reference 2: training with multiple zonings.
             row, zrows = evaluate_zoning_model(
                 make_model(model_name),
                 train_all,
@@ -190,7 +190,7 @@ def main():
             summary.append(row)
             per_zoning.extend(zrows)
 
-            # Baseline 3: completely partition-invariant whole-patch morphology.
+            # Reference 3: morphology summarized for the full patch.
             summary.append(
                 evaluate_invariant(
                     make_model(model_name),
