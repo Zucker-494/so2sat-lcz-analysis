@@ -1,4 +1,4 @@
-name: Build final manuscript figures
+name: Generate manuscript figures
 
 on:
   workflow_dispatch:
@@ -7,6 +7,8 @@ on:
       - "analysis/make_final_figures.py"
       - ".github/workflows/final_figures.yml"
       - "results/final_hgb_confirmation/**"
+      - "results/nested_accuracy_constrained/**"
+      - "results/robust_nested_accuracy_constraint/**"
 
 permissions:
   contents: write
@@ -23,15 +25,15 @@ jobs:
           python-version: "3.11"
       - run: pip install pandas numpy matplotlib
       - run: python analysis/make_final_figures.py
-      - name: Commit SVG figures
+      - name: Save manuscript figures
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add figures/final
+          git add -A figures/final
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Add final manuscript figures"
+          git commit -m "Update manuscript figures"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
