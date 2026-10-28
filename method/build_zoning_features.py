@@ -76,7 +76,10 @@ def main():
             g[~valid]=make_valid(g[~valid])
         gp=shp_transform(g,to_proj.transform,interleaved=False)
         c=centroid(gp)
-        pairs=tree.query(c,predicate="contains")
+        # STRtree applies the predicate as predicate(input_geometry, tree_geometry).
+        # Here the input is a building centroid and the tree contains LCZ patches,
+        # so the correct relation is Point.within(Polygon).
+        pairs=tree.query(c,predicate="within")
         if pairs.shape[1]==0:
             continue
         bi=pairs[0]; pi=pairs[1]
