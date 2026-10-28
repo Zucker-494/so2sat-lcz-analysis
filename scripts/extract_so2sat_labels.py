@@ -14,7 +14,7 @@ LCZ_NAMES = [
     "Compact midrise",
     "Compact low-rise",
     "Open high-rise",
-    "Open midrise",
+    "Open mid-rise",
     "Open low-rise",
     "Lightweight low-rise",
     "Large low-rise",
@@ -29,6 +29,11 @@ LCZ_NAMES = [
     "Water",
 ]
 
+PATCH_PIXELS = 32
+PIXEL_SIZE_M = 10.0
+PATCH_SIZE_M = PATCH_PIXELS * PIXEL_SIZE_M
+HALF_PATCH_M = PATCH_SIZE_M / 2.0
+
 def decode_city(values):
     out = []
     for v in values:
@@ -39,15 +44,19 @@ def decode_city(values):
     return np.asarray(out)
 
 def patch_centres(tfw):
-    # TFW convention:
-    # x = A*col + B*row + C
-    # y = D*col + E*row + F
-    # C/F are the centre coordinates of the upper-left pixel.
-    # So2Sat patches are 32 x 32 pixels, hence geometric centre = (15.5, 15.5).
-    col = 15.5
-    row = 15.5
-    x = tfw[:,0] * col + tfw[:,2] * row + tfw[:,4]
-    y = tfw[:,1] * col + tfw[:,3] * row + tfw[:,5]
+    # Match the official So2Sat save_geotiff.py logic.
+    # The supplied TFW C/F values behave as the upper-left raster origin;
+    # the patch centre is therefore half of 32 * 10 m = 160 m from that origin.
+    A = tfw[:, 0]
+    D = tfw[:, 1]
+    B = tfw[:, 2]
+    E = tfw[:, 3]
+    C = tfw[:, 4]
+    F = tfw[:, 5]
+    col = PATCH_PIXELS / 2.0
+    row = PATCH_PIXELS / 2.0
+    x = A * col + B * row + C
+    y = D * col + E * row + F
     return x, y
 
 def to_wgs84(epsg, x, y):
@@ -110,13 +119,17 @@ def main():
         "lcz_name": [LCZ_NAMES[i] for i in class_idx0],
         "label_onehot_valid": valid_onehot,
         "epsg": epsg,
+        "patch_size_m": PATCH_SIZE_M,
         "x_center": x,
         "y_center": y,
+        "x_min": x - HALF_PATCH_M,
+        "x_max": x + HALF_PATCH_M,
+        "y_min": y - HALF_PATCH_M,
+        "y_max": y + HALF_PATCH_M,
         "longitude": lon,
         "latitude": lat,
     })
 
-    # Keep per-city files small and directly readable through GitHub.
     for c, g in df.groupby("city", sort=True):
         g.to_csv(samples_dir / f"{c}.csv", index=False)
 
@@ -150,6 +163,10 @@ def main():
         "onehot_invalid": int((~valid_onehot).sum()),
         "cities": sorted(df.city.unique().tolist()),
         "epsg_codes": sorted(int(v) for v in np.unique(epsg)),
+        "patch_pixels": PATCH_PIXELS,
+        "pixel_size_m": PIXEL_SIZE_M,
+        "patch_size_m": PATCH_SIZE_M,
+        "centre_logic": "official So2Sat save_geotiff.py: upper-left origin plus half of 32x10m",
     }
     with open(output / f"{args.split}_audit.json", "w", encoding="utf-8") as f:
         json.dump(audit, f, indent=2, ensure_ascii=False)
