@@ -89,7 +89,7 @@ def main():
         per = length(bg)
         comp = np.where(per > 0, 4.0 * np.pi * ba / (per * per), 0.0)
 
-        # Each object contributes smoothly to every fixed anchor.
+        # Each building contributes to every fixed anchor according to distance.
         dx = xr[:, None] - ANCHOR_COORDS[None, :, 0]
         dy = yr[:, None] - ANCHOR_COORDS[None, :, 1]
         weights = np.exp(-(dx * dx + dy * dy) / (2.0 * SIGMA_M * SIGMA_M))
@@ -105,7 +105,7 @@ def main():
         feat = {}
         for j in range(k):
             ws = w_sum[i, j]
-            # Effective local mass and local weighted morphology.
+            # Weighted building count and morphology around each anchor.
             feat[f"a{j:02d}_effective_count"] = ws
             feat[f"a{j:02d}_weighted_area"] = area_sum[i, j] / 10000.0
             feat[f"a{j:02d}_mean_area"] = area_sum[i, j] / ws if ws > 0 else 0.0
