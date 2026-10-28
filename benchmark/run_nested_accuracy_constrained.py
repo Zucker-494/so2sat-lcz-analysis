@@ -154,7 +154,7 @@ def main():
 
             hm,cm=fit_pair(hard,cont,outer_train,model_name,hfeat,cfeat)
 
-            # Always evaluate the pure hard baseline once on the held-out city.
+            # Evaluate alpha = 0 once in the outer city.
             base=evaluate_pair(hm,cm,hard,cont,outer_city,hfeat,cfeat,0.0)
 
             for delta,sel in selections.items():
@@ -211,7 +211,7 @@ def main():
              cities_accuracy_not_lower=("accuracy_change_pp",lambda s:int((s>=0).sum())),
              cities_accuracy_within_constraint=("accuracy_change_pp",lambda s:int((s>=-s.name[1] if False else s>=-999).sum()))
          ))
-    # Replace the last placeholder with the actual per-delta city count.
+    # Insert the city counts for each delta.
     counts=[]
     for (model,delta),g in outer.groupby(["model","delta_pp"]):
         counts.append({
