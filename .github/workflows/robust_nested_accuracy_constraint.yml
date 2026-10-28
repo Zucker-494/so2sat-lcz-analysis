@@ -1,4 +1,4 @@
-name: Robust nested accuracy-constrained validation
+name: Maximum city loss selection
 
 on:
   workflow_dispatch:
