@@ -1,0 +1,92 @@
+name: Test mass-conserving soft spatial allocation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "method/build_normalized_soft_features.py"
+      - "benchmark/run_normalized_soft_comparison.py"
+      - ".github/workflows/normalized_soft.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  features:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        city: [guangzhou, jakarta, moscow, mumbai, munich, nairobi, sanfrancisco, santiago, sydney, tehran]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: |
+          python -m pip install --upgrade pip
+          pip install overturemaps pyarrow shapely pyproj pandas numpy scikit-learn
+      - run: mkdir -p work/buildings work/hard work/normalized_soft
+      - id: bbox
+        shell: bash
+        run: |
+          BBOX=$(python qc/build_city_bbox.py --city "${{ matrix.city }}")
+          echo "bbox=$BBOX" >> "$GITHUB_OUTPUT"
+      - name: Download buildings
+        run: |
+          overturemaps download --bbox="${{ steps.bbox.outputs.bbox }}" --type=building             --release=2026-10-21.0 -f geoparquet -o "work/buildings/${{ matrix.city }}.parquet"
+      - name: Build hard features
+        run: |
+          python method/build_zoning_features.py --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/hard/${{ matrix.city }}.parquet"
+      - name: Build normalized soft features
+        run: |
+          python method/build_normalized_soft_features.py --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/normalized_soft/${{ matrix.city }}.parquet"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: normalized-soft-${{ matrix.city }}
+          path: |
+            work/hard/${{ matrix.city }}.parquet
+            work/normalized_soft/${{ matrix.city }}.parquet
+          retention-days: 7
+
+  compare:
+    needs: features
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: pip install pandas pyarrow numpy scikit-learn
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: normalized-soft-*
+          path: work/downloaded
+      - shell: bash
+        run: |
+          mkdir -p work/hard work/normalized_soft
+          find work/downloaded -path "*/hard/*.parquet" -exec cp {} work/hard/ \;
+          find work/downloaded -path "*/normalized_soft/*.parquet" -exec cp {} work/normalized_soft/ \;
+      - name: Compare representations
+        run: python benchmark/run_normalized_soft_comparison.py
+      - name: Commit results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/normalized_soft_comparison
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add normalized soft spatial allocation results"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
