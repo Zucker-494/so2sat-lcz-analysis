@@ -1,0 +1,88 @@
+{
+  "validation": {
+    "split": "validation",
+    "n": 24119,
+    "data_h5_keys": [
+      "label",
+      "sen1",
+      "sen2"
+    ],
+    "geo_h5_keys": [
+      "city",
+      "epsg",
+      "tfw"
+    ],
+    "label_shape": [
+      24119,
+      17
+    ],
+    "onehot_invalid": 0,
+    "cities": [
+      "guangzhou",
+      "jakarta",
+      "moscow",
+      "mumbai",
+      "munich",
+      "nairobi",
+      "sanfrancisco",
+      "santiago",
+      "sydney",
+      "tehran"
+    ],
+    "epsg_codes": [
+      32610,
+      32632,
+      32637,
+      32639,
+      32643,
+      32649,
+      32719,
+      32737,
+      32748,
+      32756
+    ]
+  },
+  "testing": {
+    "split": "testing",
+    "n": 24188,
+    "data_h5_keys": [
+      "label",
+      "sen1",
+      "sen2"
+    ],
+    "geo_h5_keys": [
+      "city",
+      "epsg",
+      "tfw"
+    ],
+    "label_shape": [
+      24188,
+      17
+    ],
+    "onehot_invalid": 0,
+    "cities": [
+      "guangzhou",
+      "jakarta",
+      "moscow",
+      "mumbai",
+      "munich",
+      "nairobi",
+      "sanfrancisco",
+      "santiago",
+      "sydney",
+      "tehran"
+    ],
+    "epsg_codes": [
+      32610,
+      32632,
+      32637,
+      32639,
+      32643,
+      32649,
+      32719,
+      32737,
+      32748,
+      32756
+    ]
+  }
+}

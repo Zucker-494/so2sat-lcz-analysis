@@ -1,0 +1,155 @@
+split,city,lcz_index_1to17,lcz_code,lcz_name,n
+validation,guangzhou,1,1,Compact high-rise,10
+validation,guangzhou,2,2,Compact midrise,162
+validation,guangzhou,3,3,Compact low-rise,99
+validation,guangzhou,4,4,Open high-rise,157
+validation,guangzhou,5,5,Open midrise,112
+validation,guangzhou,6,6,Open low-rise,79
+validation,guangzhou,7,7,Lightweight low-rise,52
+validation,guangzhou,8,8,Large low-rise,553
+validation,guangzhou,9,9,Sparsely built,1
+validation,guangzhou,10,10,Heavy industry,325
+validation,guangzhou,11,A,Dense trees,158
+validation,guangzhou,12,B,Scattered trees,14
+validation,guangzhou,14,D,Low plants,313
+validation,guangzhou,16,F,Bare soil or sand,4
+validation,guangzhou,17,G,Water,374
+validation,jakarta,1,1,Compact high-rise,24
+validation,jakarta,2,2,Compact midrise,3
+validation,jakarta,3,3,Compact low-rise,587
+validation,jakarta,4,4,Open high-rise,5
+validation,jakarta,5,5,Open midrise,5
+validation,jakarta,6,6,Open low-rise,48
+validation,jakarta,7,7,Lightweight low-rise,51
+validation,jakarta,8,8,Large low-rise,511
+validation,jakarta,9,9,Sparsely built,141
+validation,jakarta,10,10,Heavy industry,52
+validation,jakarta,11,A,Dense trees,197
+validation,jakarta,12,B,Scattered trees,22
+validation,jakarta,14,D,Low plants,409
+validation,jakarta,15,E,Bare rock or paved,3
+validation,jakarta,16,F,Bare soil or sand,9
+validation,jakarta,17,G,Water,344
+validation,moscow,2,2,Compact midrise,164
+validation,moscow,3,3,Compact low-rise,6
+validation,moscow,4,4,Open high-rise,428
+validation,moscow,5,5,Open midrise,213
+validation,moscow,6,6,Open low-rise,58
+validation,moscow,7,7,Lightweight low-rise,6
+validation,moscow,8,8,Large low-rise,166
+validation,moscow,9,9,Sparsely built,204
+validation,moscow,10,10,Heavy industry,114
+validation,moscow,11,A,Dense trees,406
+validation,moscow,12,B,Scattered trees,33
+validation,moscow,13,C,"Bush, scrub",1
+validation,moscow,14,D,Low plants,428
+validation,moscow,15,E,Bare rock or paved,6
+validation,moscow,16,F,Bare soil or sand,8
+validation,moscow,17,G,Water,170
+validation,mumbai,1,1,Compact high-rise,14
+validation,mumbai,2,2,Compact midrise,217
+validation,mumbai,3,3,Compact low-rise,33
+validation,mumbai,4,4,Open high-rise,165
+validation,mumbai,5,5,Open midrise,173
+validation,mumbai,6,6,Open low-rise,9
+validation,mumbai,7,7,Lightweight low-rise,140
+validation,mumbai,8,8,Large low-rise,186
+validation,mumbai,9,9,Sparsely built,316
+validation,mumbai,10,10,Heavy industry,122
+validation,mumbai,11,A,Dense trees,316
+validation,mumbai,12,B,Scattered trees,21
+validation,mumbai,13,C,"Bush, scrub",24
+validation,mumbai,14,D,Low plants,316
+validation,mumbai,15,E,Bare rock or paved,27
+validation,mumbai,16,F,Bare soil or sand,18
+validation,mumbai,17,G,Water,316
+validation,munich,2,2,Compact midrise,167
+validation,munich,3,3,Compact low-rise,3
+validation,munich,4,4,Open high-rise,12
+validation,munich,5,5,Open midrise,179
+validation,munich,6,6,Open low-rise,386
+validation,munich,8,8,Large low-rise,362
+validation,munich,9,9,Sparsely built,69
+validation,munich,10,10,Heavy industry,31
+validation,munich,11,A,Dense trees,386
+validation,munich,12,B,Scattered trees,24
+validation,munich,13,C,"Bush, scrub",17
+validation,munich,14,D,Low plants,386
+validation,munich,15,E,Bare rock or paved,4
+validation,munich,17,G,Water,386
+validation,nairobi,1,1,Compact high-rise,19
+validation,nairobi,2,2,Compact midrise,84
+validation,nairobi,3,3,Compact low-rise,183
+validation,nairobi,6,6,Open low-rise,541
+validation,nairobi,7,7,Lightweight low-rise,223
+validation,nairobi,8,8,Large low-rise,361
+validation,nairobi,9,9,Sparsely built,185
+validation,nairobi,10,10,Heavy industry,28
+validation,nairobi,11,A,Dense trees,232
+validation,nairobi,12,B,Scattered trees,4
+validation,nairobi,13,C,"Bush, scrub",540
+validation,nairobi,16,F,Bare soil or sand,9
+validation,nairobi,17,G,Water,2
+validation,sanfrancisco,1,1,Compact high-rise,46
+validation,sanfrancisco,2,2,Compact midrise,50
+validation,sanfrancisco,3,3,Compact low-rise,556
+validation,sanfrancisco,4,4,Open high-rise,1
+validation,sanfrancisco,5,5,Open midrise,13
+validation,sanfrancisco,6,6,Open low-rise,130
+validation,sanfrancisco,8,8,Large low-rise,437
+validation,sanfrancisco,9,9,Sparsely built,67
+validation,sanfrancisco,10,10,Heavy industry,87
+validation,sanfrancisco,11,A,Dense trees,272
+validation,sanfrancisco,12,B,Scattered trees,85
+validation,sanfrancisco,13,C,"Bush, scrub",15
+validation,sanfrancisco,14,D,Low plants,30
+validation,sanfrancisco,15,E,Bare rock or paved,67
+validation,sanfrancisco,16,F,Bare soil or sand,1
+validation,sanfrancisco,17,G,Water,556
+validation,santiago,1,1,Compact high-rise,94
+validation,santiago,2,2,Compact midrise,17
+validation,santiago,3,3,Compact low-rise,301
+validation,santiago,4,4,Open high-rise,16
+validation,santiago,5,5,Open midrise,26
+validation,santiago,6,6,Open low-rise,97
+validation,santiago,8,8,Large low-rise,167
+validation,santiago,9,9,Sparsely built,494
+validation,santiago,10,10,Heavy industry,11
+validation,santiago,11,A,Dense trees,14
+validation,santiago,12,B,Scattered trees,24
+validation,santiago,13,C,"Bush, scrub",429
+validation,santiago,14,D,Low plants,438
+validation,santiago,15,E,Bare rock or paved,42
+validation,santiago,16,F,Bare soil or sand,243
+validation,sydney,1,1,Compact high-rise,18
+validation,sydney,2,2,Compact midrise,24
+validation,sydney,3,3,Compact low-rise,425
+validation,sydney,4,4,Open high-rise,1
+validation,sydney,5,5,Open midrise,2
+validation,sydney,6,6,Open low-rise,415
+validation,sydney,7,7,Lightweight low-rise,2
+validation,sydney,8,8,Large low-rise,274
+validation,sydney,9,9,Sparsely built,367
+validation,sydney,10,10,Heavy industry,18
+validation,sydney,11,A,Dense trees,305
+validation,sydney,12,B,Scattered trees,80
+validation,sydney,14,D,Low plants,49
+validation,sydney,15,E,Bare rock or paved,4
+validation,sydney,16,F,Bare soil or sand,2
+validation,sydney,17,G,Water,425
+validation,tehran,1,1,Compact high-rise,31
+validation,tehran,2,2,Compact midrise,366
+validation,tehran,3,3,Compact low-rise,160
+validation,tehran,4,4,Open high-rise,64
+validation,tehran,5,5,Open midrise,34
+validation,tehran,6,6,Open low-rise,143
+validation,tehran,8,8,Large low-rise,378
+validation,tehran,9,9,Sparsely built,70
+validation,tehran,10,10,Heavy industry,72
+validation,tehran,11,A,Dense trees,1
+validation,tehran,12,B,Scattered trees,75
+validation,tehran,13,C,"Bush, scrub",176
+validation,tehran,14,D,Low plants,378
+validation,tehran,15,E,Bare rock or paved,49
+validation,tehran,16,F,Bare soil or sand,378
+validation,tehran,17,G,Water,36

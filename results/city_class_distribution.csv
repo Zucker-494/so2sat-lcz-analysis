@@ -1,0 +1,156 @@
+city,lcz_index_1to17,lcz_code,lcz_name,n
+guangzhou,1,1,Compact high-rise,20
+guangzhou,2,2,Compact midrise,325
+guangzhou,3,3,Compact low-rise,194
+guangzhou,4,4,Open high-rise,314
+guangzhou,5,5,Open midrise,223
+guangzhou,6,6,Open low-rise,138
+guangzhou,7,7,Lightweight low-rise,114
+guangzhou,8,8,Large low-rise,1115
+guangzhou,9,9,Sparsely built,11
+guangzhou,10,10,Heavy industry,650
+guangzhou,11,A,Dense trees,317
+guangzhou,12,B,Scattered trees,28
+guangzhou,13,C,"Bush, scrub",1
+guangzhou,14,D,Low plants,626
+guangzhou,16,F,Bare soil or sand,9
+guangzhou,17,G,Water,748
+jakarta,1,1,Compact high-rise,58
+jakarta,2,2,Compact midrise,8
+jakarta,3,3,Compact low-rise,1332
+jakarta,4,4,Open high-rise,13
+jakarta,5,5,Open midrise,12
+jakarta,6,6,Open low-rise,125
+jakarta,7,7,Lightweight low-rise,121
+jakarta,8,8,Large low-rise,1116
+jakarta,9,9,Sparsely built,338
+jakarta,10,10,Heavy industry,137
+jakarta,11,A,Dense trees,471
+jakarta,12,B,Scattered trees,52
+jakarta,14,D,Low plants,414
+jakarta,15,E,Bare rock or paved,7
+jakarta,16,F,Bare soil or sand,15
+jakarta,17,G,Water,612
+moscow,2,2,Compact midrise,330
+moscow,3,3,Compact low-rise,12
+moscow,4,4,Open high-rise,861
+moscow,5,5,Open midrise,429
+moscow,6,6,Open low-rise,117
+moscow,7,7,Lightweight low-rise,13
+moscow,8,8,Large low-rise,334
+moscow,9,9,Sparsely built,403
+moscow,10,10,Heavy industry,229
+moscow,11,A,Dense trees,808
+moscow,12,B,Scattered trees,66
+moscow,13,C,"Bush, scrub",2
+moscow,14,D,Low plants,861
+moscow,15,E,Bare rock or paved,12
+moscow,16,F,Bare soil or sand,16
+moscow,17,G,Water,338
+mumbai,1,1,Compact high-rise,28
+mumbai,2,2,Compact midrise,434
+mumbai,3,3,Compact low-rise,66
+mumbai,4,4,Open high-rise,330
+mumbai,5,5,Open midrise,347
+mumbai,6,6,Open low-rise,18
+mumbai,7,7,Lightweight low-rise,281
+mumbai,8,8,Large low-rise,373
+mumbai,9,9,Sparsely built,633
+mumbai,10,10,Heavy industry,244
+mumbai,11,A,Dense trees,633
+mumbai,12,B,Scattered trees,42
+mumbai,13,C,"Bush, scrub",48
+mumbai,14,D,Low plants,633
+mumbai,15,E,Bare rock or paved,54
+mumbai,16,F,Bare soil or sand,37
+mumbai,17,G,Water,633
+munich,2,2,Compact midrise,336
+munich,3,3,Compact low-rise,3
+munich,4,4,Open high-rise,24
+munich,5,5,Open midrise,359
+munich,6,6,Open low-rise,765
+munich,8,8,Large low-rise,727
+munich,9,9,Sparsely built,138
+munich,10,10,Heavy industry,63
+munich,11,A,Dense trees,775
+munich,12,B,Scattered trees,48
+munich,13,C,"Bush, scrub",35
+munich,14,D,Low plants,775
+munich,15,E,Bare rock or paved,9
+munich,17,G,Water,775
+nairobi,1,1,Compact high-rise,38
+nairobi,2,2,Compact midrise,168
+nairobi,3,3,Compact low-rise,365
+nairobi,6,6,Open low-rise,1078
+nairobi,7,7,Lightweight low-rise,444
+nairobi,8,8,Large low-rise,722
+nairobi,9,9,Sparsely built,388
+nairobi,10,10,Heavy industry,56
+nairobi,11,A,Dense trees,462
+nairobi,12,B,Scattered trees,8
+nairobi,13,C,"Bush, scrub",1077
+nairobi,16,F,Bare soil or sand,19
+nairobi,17,G,Water,3
+sanfrancisco,1,1,Compact high-rise,93
+sanfrancisco,2,2,Compact midrise,101
+sanfrancisco,3,3,Compact low-rise,1074
+sanfrancisco,4,4,Open high-rise,2
+sanfrancisco,5,5,Open midrise,26
+sanfrancisco,6,6,Open low-rise,292
+sanfrancisco,8,8,Large low-rise,867
+sanfrancisco,9,9,Sparsely built,126
+sanfrancisco,10,10,Heavy industry,187
+sanfrancisco,11,A,Dense trees,550
+sanfrancisco,12,B,Scattered trees,172
+sanfrancisco,13,C,"Bush, scrub",31
+sanfrancisco,14,D,Low plants,54
+sanfrancisco,15,E,Bare rock or paved,135
+sanfrancisco,16,F,Bare soil or sand,2
+sanfrancisco,17,G,Water,1118
+santiago,1,1,Compact high-rise,187
+santiago,2,2,Compact midrise,33
+santiago,3,3,Compact low-rise,601
+santiago,4,4,Open high-rise,32
+santiago,5,5,Open midrise,51
+santiago,6,6,Open low-rise,193
+santiago,8,8,Large low-rise,332
+santiago,9,9,Sparsely built,1016
+santiago,10,10,Heavy industry,22
+santiago,11,A,Dense trees,25
+santiago,12,B,Scattered trees,89
+santiago,13,C,"Bush, scrub",822
+santiago,14,D,Low plants,960
+santiago,15,E,Bare rock or paved,84
+santiago,16,F,Bare soil or sand,384
+sydney,1,1,Compact high-rise,36
+sydney,2,2,Compact midrise,48
+sydney,3,3,Compact low-rise,850
+sydney,4,4,Open high-rise,2
+sydney,5,5,Open midrise,5
+sydney,6,6,Open low-rise,830
+sydney,7,7,Lightweight low-rise,4
+sydney,8,8,Large low-rise,548
+sydney,9,9,Sparsely built,734
+sydney,10,10,Heavy industry,36
+sydney,11,A,Dense trees,612
+sydney,12,B,Scattered trees,160
+sydney,14,D,Low plants,102
+sydney,15,E,Bare rock or paved,8
+sydney,16,F,Bare soil or sand,5
+sydney,17,G,Water,850
+tehran,1,1,Compact high-rise,62
+tehran,2,2,Compact midrise,733
+tehran,3,3,Compact low-rise,321
+tehran,4,4,Open high-rise,128
+tehran,5,5,Open midrise,68
+tehran,6,6,Open low-rise,286
+tehran,8,8,Large low-rise,757
+tehran,9,9,Sparsely built,140
+tehran,10,10,Heavy industry,144
+tehran,11,A,Dense trees,2
+tehran,12,B,Scattered trees,150
+tehran,13,C,"Bush, scrub",352
+tehran,14,D,Low plants,757
+tehran,15,E,Bare rock or paved,98
+tehran,16,F,Bare soil or sand,757
+tehran,17,G,Water,72

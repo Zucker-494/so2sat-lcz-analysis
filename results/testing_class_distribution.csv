@@ -1,0 +1,155 @@
+split,city,lcz_index_1to17,lcz_code,lcz_name,n
+testing,guangzhou,1,1,Compact high-rise,10
+testing,guangzhou,2,2,Compact midrise,163
+testing,guangzhou,3,3,Compact low-rise,95
+testing,guangzhou,4,4,Open high-rise,157
+testing,guangzhou,5,5,Open midrise,111
+testing,guangzhou,6,6,Open low-rise,59
+testing,guangzhou,7,7,Lightweight low-rise,62
+testing,guangzhou,8,8,Large low-rise,562
+testing,guangzhou,9,9,Sparsely built,10
+testing,guangzhou,10,10,Heavy industry,325
+testing,guangzhou,11,A,Dense trees,159
+testing,guangzhou,12,B,Scattered trees,14
+testing,guangzhou,13,C,"Bush, scrub",1
+testing,guangzhou,14,D,Low plants,313
+testing,guangzhou,16,F,Bare soil or sand,5
+testing,guangzhou,17,G,Water,374
+testing,jakarta,1,1,Compact high-rise,34
+testing,jakarta,2,2,Compact midrise,5
+testing,jakarta,3,3,Compact low-rise,745
+testing,jakarta,4,4,Open high-rise,8
+testing,jakarta,5,5,Open midrise,7
+testing,jakarta,6,6,Open low-rise,77
+testing,jakarta,7,7,Lightweight low-rise,70
+testing,jakarta,8,8,Large low-rise,605
+testing,jakarta,9,9,Sparsely built,197
+testing,jakarta,10,10,Heavy industry,85
+testing,jakarta,11,A,Dense trees,274
+testing,jakarta,12,B,Scattered trees,30
+testing,jakarta,14,D,Low plants,5
+testing,jakarta,15,E,Bare rock or paved,4
+testing,jakarta,16,F,Bare soil or sand,6
+testing,jakarta,17,G,Water,268
+testing,moscow,2,2,Compact midrise,166
+testing,moscow,3,3,Compact low-rise,6
+testing,moscow,4,4,Open high-rise,433
+testing,moscow,5,5,Open midrise,216
+testing,moscow,6,6,Open low-rise,59
+testing,moscow,7,7,Lightweight low-rise,7
+testing,moscow,8,8,Large low-rise,168
+testing,moscow,9,9,Sparsely built,199
+testing,moscow,10,10,Heavy industry,115
+testing,moscow,11,A,Dense trees,402
+testing,moscow,12,B,Scattered trees,33
+testing,moscow,13,C,"Bush, scrub",1
+testing,moscow,14,D,Low plants,433
+testing,moscow,15,E,Bare rock or paved,6
+testing,moscow,16,F,Bare soil or sand,8
+testing,moscow,17,G,Water,168
+testing,mumbai,1,1,Compact high-rise,14
+testing,mumbai,2,2,Compact midrise,217
+testing,mumbai,3,3,Compact low-rise,33
+testing,mumbai,4,4,Open high-rise,165
+testing,mumbai,5,5,Open midrise,174
+testing,mumbai,6,6,Open low-rise,9
+testing,mumbai,7,7,Lightweight low-rise,141
+testing,mumbai,8,8,Large low-rise,187
+testing,mumbai,9,9,Sparsely built,317
+testing,mumbai,10,10,Heavy industry,122
+testing,mumbai,11,A,Dense trees,317
+testing,mumbai,12,B,Scattered trees,21
+testing,mumbai,13,C,"Bush, scrub",24
+testing,mumbai,14,D,Low plants,317
+testing,mumbai,15,E,Bare rock or paved,27
+testing,mumbai,16,F,Bare soil or sand,19
+testing,mumbai,17,G,Water,317
+testing,munich,2,2,Compact midrise,169
+testing,munich,4,4,Open high-rise,12
+testing,munich,5,5,Open midrise,180
+testing,munich,6,6,Open low-rise,379
+testing,munich,8,8,Large low-rise,365
+testing,munich,9,9,Sparsely built,69
+testing,munich,10,10,Heavy industry,32
+testing,munich,11,A,Dense trees,389
+testing,munich,12,B,Scattered trees,24
+testing,munich,13,C,"Bush, scrub",18
+testing,munich,14,D,Low plants,389
+testing,munich,15,E,Bare rock or paved,5
+testing,munich,17,G,Water,389
+testing,nairobi,1,1,Compact high-rise,19
+testing,nairobi,2,2,Compact midrise,84
+testing,nairobi,3,3,Compact low-rise,182
+testing,nairobi,6,6,Open low-rise,537
+testing,nairobi,7,7,Lightweight low-rise,221
+testing,nairobi,8,8,Large low-rise,361
+testing,nairobi,9,9,Sparsely built,203
+testing,nairobi,10,10,Heavy industry,28
+testing,nairobi,11,A,Dense trees,230
+testing,nairobi,12,B,Scattered trees,4
+testing,nairobi,13,C,"Bush, scrub",537
+testing,nairobi,16,F,Bare soil or sand,10
+testing,nairobi,17,G,Water,1
+testing,sanfrancisco,1,1,Compact high-rise,47
+testing,sanfrancisco,2,2,Compact midrise,51
+testing,sanfrancisco,3,3,Compact low-rise,518
+testing,sanfrancisco,4,4,Open high-rise,1
+testing,sanfrancisco,5,5,Open midrise,13
+testing,sanfrancisco,6,6,Open low-rise,162
+testing,sanfrancisco,8,8,Large low-rise,430
+testing,sanfrancisco,9,9,Sparsely built,59
+testing,sanfrancisco,10,10,Heavy industry,100
+testing,sanfrancisco,11,A,Dense trees,278
+testing,sanfrancisco,12,B,Scattered trees,87
+testing,sanfrancisco,13,C,"Bush, scrub",16
+testing,sanfrancisco,14,D,Low plants,24
+testing,sanfrancisco,15,E,Bare rock or paved,68
+testing,sanfrancisco,16,F,Bare soil or sand,1
+testing,sanfrancisco,17,G,Water,562
+testing,santiago,1,1,Compact high-rise,93
+testing,santiago,2,2,Compact midrise,16
+testing,santiago,3,3,Compact low-rise,300
+testing,santiago,4,4,Open high-rise,16
+testing,santiago,5,5,Open midrise,25
+testing,santiago,6,6,Open low-rise,96
+testing,santiago,8,8,Large low-rise,165
+testing,santiago,9,9,Sparsely built,522
+testing,santiago,10,10,Heavy industry,11
+testing,santiago,11,A,Dense trees,11
+testing,santiago,12,B,Scattered trees,65
+testing,santiago,13,C,"Bush, scrub",393
+testing,santiago,14,D,Low plants,522
+testing,santiago,15,E,Bare rock or paved,42
+testing,santiago,16,F,Bare soil or sand,141
+testing,sydney,1,1,Compact high-rise,18
+testing,sydney,2,2,Compact midrise,24
+testing,sydney,3,3,Compact low-rise,425
+testing,sydney,4,4,Open high-rise,1
+testing,sydney,5,5,Open midrise,3
+testing,sydney,6,6,Open low-rise,415
+testing,sydney,7,7,Lightweight low-rise,2
+testing,sydney,8,8,Large low-rise,274
+testing,sydney,9,9,Sparsely built,367
+testing,sydney,10,10,Heavy industry,18
+testing,sydney,11,A,Dense trees,307
+testing,sydney,12,B,Scattered trees,80
+testing,sydney,14,D,Low plants,53
+testing,sydney,15,E,Bare rock or paved,4
+testing,sydney,16,F,Bare soil or sand,3
+testing,sydney,17,G,Water,425
+testing,tehran,1,1,Compact high-rise,31
+testing,tehran,2,2,Compact midrise,367
+testing,tehran,3,3,Compact low-rise,161
+testing,tehran,4,4,Open high-rise,64
+testing,tehran,5,5,Open midrise,34
+testing,tehran,6,6,Open low-rise,143
+testing,tehran,8,8,Large low-rise,379
+testing,tehran,9,9,Sparsely built,70
+testing,tehran,10,10,Heavy industry,72
+testing,tehran,11,A,Dense trees,1
+testing,tehran,12,B,Scattered trees,75
+testing,tehran,13,C,"Bush, scrub",176
+testing,tehran,14,D,Low plants,379
+testing,tehran,15,E,Bare rock or paved,49
+testing,tehran,16,F,Bare soil or sand,379
+testing,tehran,17,G,Water,36
