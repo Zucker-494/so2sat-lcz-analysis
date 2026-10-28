@@ -124,7 +124,7 @@ def main():
             row["constraint_met"]=row["accuracy_change_pp"]>=-delta-1e-12
             rows.append(row)
 
-            # Recompute baseline flags once for class-level comparison.
+            # Recompute baseline indicators for the LCZ class comparison.
             bcorr=base_pred==y[:,None]
             bpier=bcorr.any(1)&(~bcorr).any(1)
             for label in sorted(np.unique(y)):
@@ -172,7 +172,7 @@ def main():
     pd.DataFrame(agg).to_csv(out/"aggregate_summary.csv",index=False)
     pd.DataFrame(inf).to_csv(out/"cluster_bootstrap_ci.csv",index=False)
 
-    # Aggregate class effects across cities without pooling city sizes.
+    # Average LCZ class effects across cities without weighting by city sample size.
     class_agg=(cdf.groupby(["delta_pp","label"],as_index=False)
         .agg(
             baseline_accuracy=("baseline_accuracy","mean"),
