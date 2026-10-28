@@ -15,7 +15,10 @@ def main():
     df=pd.concat([pd.read_parquet(f) for f in files],ignore_index=True)
 
     # City-level external validation: each city held out in turn.
-    feature_cols=[c for c in df.columns if c.startswith("c")]
+    feature_cols=[
+        c for c in df.columns
+        if len(c) >= 4 and c[0] == "c" and c[1:3].isdigit() and c[3] == "_"
+    ]
     rows=[]
     per_sample=[]
     cities=sorted(df.city.unique())
