@@ -1,0 +1,72 @@
+name: Extract So2Sat LCZ labels
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/**"
+      - ".github/workflows/extract_so2sat.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install h5py numpy pandas pyproj
+
+      - name: Prepare directories
+        run: |
+          mkdir -p work results
+
+      - name: Process validation split
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://huggingface.co/datasets/zhu-xlab/So2Sat-LCZ42/resolve/main/v4"
+          curl -L --retry 5 --retry-delay 10 "$BASE/validation.h5.gz" -o work/validation.h5.gz
+          curl -L --retry 5 --retry-delay 10 "$BASE/validation_geo.h5" -o work/validation_geo.h5
+          gzip -dc work/validation.h5.gz > work/validation.h5
+          python scripts/extract_so2sat_labels.py             --split validation             --data-h5 work/validation.h5             --geo-h5 work/validation_geo.h5             --output-dir results
+          rm -f work/validation.h5.gz work/validation.h5 work/validation_geo.h5
+
+      - name: Process testing split
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://huggingface.co/datasets/zhu-xlab/So2Sat-LCZ42/resolve/main/v4"
+          curl -L --retry 5 --retry-delay 10 "$BASE/testing.h5.gz" -o work/testing.h5.gz
+          curl -L --retry 5 --retry-delay 10 "$BASE/testing_geo.h5" -o work/testing_geo.h5
+          gzip -dc work/testing.h5.gz > work/testing.h5
+          python scripts/extract_so2sat_labels.py             --split testing             --data-h5 work/testing.h5             --geo-h5 work/testing_geo.h5             --output-dir results
+          rm -f work/testing.h5.gz work/testing.h5 work/testing_geo.h5
+
+      - name: Build combined summaries
+        run: python scripts/summarize_results.py
+
+      - name: Commit lightweight outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results
+          if git diff --cached --quiet; then
+            echo "No result changes to commit."
+          else
+            git commit -m "Add extracted So2Sat LCZ label summaries"
+            git push
+          fi
