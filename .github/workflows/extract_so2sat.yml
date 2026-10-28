@@ -12,14 +12,16 @@ permissions:
 
 jobs:
   extract:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -66,7 +68,20 @@ jobs:
           git add results
           if git diff --cached --quiet; then
             echo "No result changes to commit."
-          else
-            git commit -m "Add extracted So2Sat LCZ label summaries"
-            git push
+            exit 0
           fi
+          git commit -m "Add extracted So2Sat LCZ label summaries"
+
+          # The repository may advance while this job is downloading the public data.
+          # Rebase the generated-results commit onto the latest main before pushing.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying after resync."
+            sleep 5
+          done
+          echo "Unable to push generated results after three attempts."
+          exit 1
