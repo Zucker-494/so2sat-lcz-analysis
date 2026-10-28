@@ -57,12 +57,3 @@ Mean values across cities:
 - correct to wrong rate: 16.672% to 14.504%;
 - prediction disagreement: 42.043% to 37.281%.
 
-## Repository structure
-
-- `benchmark/`: spatial prediction analyses;
-- `method/`: construction of zoning based spatial features;
-- `qc/`: checks of building coverage and geometry;
-- `results/`: tabular results;
-- `analysis/`: manuscript figure generation;
-- `figures/final/`: final PNG figures;
-- `docs/`: current method description and literature position.
