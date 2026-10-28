@@ -1,4 +1,4 @@
-name: Test mass-conserving soft spatial allocation
+name: Normalized spatial weighting
 
 on:
   workflow_dispatch:
