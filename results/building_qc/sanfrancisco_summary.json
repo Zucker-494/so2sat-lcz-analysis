@@ -1,0 +1,14 @@
+{
+  "city": "sanfrancisco",
+  "epsg": 32610,
+  "sample_n": 4830,
+  "built_lcz_n": 2768,
+  "overture_buildings_downloaded": 629483,
+  "valid_buildings_after_cleaning": 629483,
+  "invalid_buildings_before_repair": 0,
+  "built_zero_building_rate": 0.0,
+  "built_median_building_count": 89.0,
+  "built_median_coverage": 0.29774847085531453,
+  "built_q10_coverage": 0.12331540216688262,
+  "built_q90_coverage": 0.440183433253012
+}
