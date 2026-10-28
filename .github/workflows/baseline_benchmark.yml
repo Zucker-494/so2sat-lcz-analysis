@@ -1,4 +1,4 @@
-name: Benchmark zoning robustness baselines
+name: Reference zoning analysis
 
 on:
   workflow_dispatch:
