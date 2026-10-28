@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - ".github/workflows/building_qc.yml"
+      - "qc/**"
   workflow_run:
     workflows: ["Extract So2Sat LCZ labels"]
     types: [completed]
