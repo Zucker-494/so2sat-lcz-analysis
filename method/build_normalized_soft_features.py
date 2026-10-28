@@ -103,8 +103,7 @@ def main():
             dx=xr[:,None]-anchors[None,:,0]
             dy=yr[:,None]-anchors[None,:,1]
             w=np.exp(-(dx*dx+dy*dy)/(2.0*SIGMA_M*SIGMA_M))
-            # Mass-conserving soft allocation: every building contributes
-            # exactly one unit of membership across the 16 anchors.
+            # Each building is distributed across the 16 anchors with total membership equal to one.
             denom=w.sum(axis=1,keepdims=True)
             w=np.divide(w,denom,out=np.zeros_like(w),where=denom>0)
 
