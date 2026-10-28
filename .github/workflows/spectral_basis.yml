@@ -1,4 +1,4 @@
-name: Test bandwidth-free spectral morphology basis
+name: Spectral morphology reference
 
 on:
   workflow_dispatch:
