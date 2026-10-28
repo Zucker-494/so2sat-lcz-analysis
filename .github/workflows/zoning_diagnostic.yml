@@ -1,4 +1,4 @@
-name: Diagnose zoning-induced prediction error
+name: Zoning sensitivity analysis
 
 on:
   workflow_dispatch:
