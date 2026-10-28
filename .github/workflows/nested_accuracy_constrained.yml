@@ -1,0 +1,96 @@
+name: Nested accuracy-constrained robustness validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "benchmark/run_nested_accuracy_constrained.py"
+      - ".github/workflows/nested_accuracy_constrained.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  features:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        city: [guangzhou, jakarta, moscow, mumbai, munich, nairobi, sanfrancisco, santiago, sydney, tehran]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: |
+          python -m pip install --upgrade pip
+          pip install overturemaps pyarrow shapely pyproj pandas numpy scikit-learn
+      - run: mkdir -p work/buildings work/hard work/continuous_sensitivity
+      - id: bbox
+        shell: bash
+        run: |
+          BBOX=$(python qc/build_city_bbox.py --city "${{ matrix.city }}")
+          echo "bbox=$BBOX" >> "$GITHUB_OUTPUT"
+      - name: Download buildings with retry
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4; do
+            if overturemaps download --bbox="${{ steps.bbox.outputs.bbox }}" --type=building               --release=2026-10-21.0 -f geoparquet -o "work/buildings/${{ matrix.city }}.parquet"; then
+              exit 0
+            fi
+            sleep $((attempt * 20))
+          done
+          exit 1
+      - run: |
+          python method/build_zoning_features.py --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/hard/${{ matrix.city }}.parquet"
+          python benchmark/build_continuous_sensitivity.py --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/continuous_sensitivity/${{ matrix.city }}.parquet"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nested-accuracy-${{ matrix.city }}
+          path: |
+            work/hard/${{ matrix.city }}.parquet
+            work/continuous_sensitivity/${{ matrix.city }}.parquet
+          retention-days: 7
+
+  validate:
+    needs: features
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: pip install pandas pyarrow numpy scikit-learn
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: nested-accuracy-*
+          path: work/downloaded
+      - shell: bash
+        run: |
+          mkdir -p work/hard work/continuous_sensitivity
+          find work/downloaded -path "*/hard/*.parquet" -exec cp {} work/hard/ \;
+          find work/downloaded -path "*/continuous_sensitivity/*.parquet" -exec cp {} work/continuous_sensitivity/ \;
+      - name: Run nested city-held-out validation
+        run: python benchmark/run_nested_accuracy_constrained.py
+      - name: Commit nested validation results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/nested_accuracy_constrained
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Add nested accuracy-constrained validation"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
