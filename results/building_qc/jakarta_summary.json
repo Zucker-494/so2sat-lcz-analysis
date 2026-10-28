@@ -1,0 +1,16 @@
+{
+  "city": "jakarta",
+  "epsg": 32748,
+  "sample_n": 4831,
+  "built_lcz_n": 3260,
+  "overture_buildings_downloaded": 5782700,
+  "valid_buildings_after_cleaning": 5782700,
+  "invalid_buildings_before_repair": 0,
+  "built_zero_building_rate": 0.0,
+  "built_median_building_count": 160.0,
+  "built_median_coverage": 0.4010952697380825,
+  "built_q10_coverage": 0.10756677610768776,
+  "built_q90_coverage": 0.5857316367988181,
+  "processing_mode": "streamed parquet batches",
+  "batch_size": 100000
+}

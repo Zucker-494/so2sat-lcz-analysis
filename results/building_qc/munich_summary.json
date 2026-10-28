@@ -10,5 +10,7 @@
   "built_median_building_count": 91.0,
   "built_median_coverage": 0.21811056648634694,
   "built_q10_coverage": 0.08256219760429924,
-  "built_q90_coverage": 0.4427972165505738
+  "built_q90_coverage": 0.4427972165505738,
+  "processing_mode": "streamed parquet batches",
+  "batch_size": 100000
 }
