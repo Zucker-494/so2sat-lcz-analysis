@@ -60,7 +60,7 @@ def indicators(pred_matrix, truth):
     }
 
 def bootstrap_diff(a, b, rng, nboot=BOOT):
-    # Returns b-a; here b is continuous and a is hard.
+    # Difference is continuous representation minus discrete zoning representation.
     d = b.astype(float)-a.astype(float)
     point = float(d.mean())
     n = len(d)
