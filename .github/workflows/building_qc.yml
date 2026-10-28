@@ -2,6 +2,9 @@ name: Audit Overture building matches
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/building_qc.yml"
   workflow_run:
     workflows: ["Extract So2Sat LCZ labels"]
     types: [completed]
@@ -11,7 +14,7 @@ permissions:
 
 jobs:
   building-qc:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     strategy:
