@@ -1,4 +1,4 @@
-name: Nested accuracy-constrained robustness validation
+name: Mean accuracy selection by city
 
 on:
   workflow_dispatch:
