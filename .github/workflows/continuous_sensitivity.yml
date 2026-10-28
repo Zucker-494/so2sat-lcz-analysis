@@ -1,4 +1,4 @@
-name: Test continuous representation sensitivity
+name: Sensitivity of continuous representation
 
 on:
   workflow_dispatch:
