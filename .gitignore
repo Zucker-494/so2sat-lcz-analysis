@@ -1,0 +1,6 @@
+work/
+*.h5
+*.h5.gz
+__pycache__/
+*.pyc
+.DS_Store
