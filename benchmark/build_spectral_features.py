@@ -41,7 +41,7 @@ def main():
     tree = STRtree(patches)
 
     n = len(samples)
-    # 16 basis functions x 4 channels = 64 features.
+    # Sixteen spatial basis functions and four morphology measures give 64 predictors.
     accum = np.zeros((n, 4, 4, 4), dtype=np.float64)
 
     to_proj = Transformer.from_crs(4326, epsg, always_xy=True)
@@ -79,7 +79,7 @@ def main():
         per = np.asarray(length(bg), dtype=np.float64)
         comp = np.where(per > 0, 4.0 * np.pi * ba / (per * per), 0.0)
 
-        # Four object channels. Scaling keeps magnitudes numerically reasonable.
+        # Four building morphology measures are rescaled before fitting.
         channels = np.column_stack([
             np.ones_like(ba),
             ba / 1000.0,
