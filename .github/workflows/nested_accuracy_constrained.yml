@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 150
     strategy:
       fail-fast: false
-      max-parallel: 3
+      max-parallel: 1
       matrix:
         city: [guangzhou, jakarta, moscow, mumbai, munich, nairobi, sanfrancisco, santiago, sydney, tehran]
     steps:
@@ -37,11 +37,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for attempt in 1 2 3 4; do
-            if overturemaps download --bbox="${{ steps.bbox.outputs.bbox }}" --type=building               --release=2026-10-21.0 -f geoparquet -o "work/buildings/${{ matrix.city }}.parquet"; then
+          for attempt in 1 2 3 4 5; do
+            if overturemaps download --bbox="${{ steps.bbox.outputs.bbox }}" --type=building --release=2026-10-21.0 -f geoparquet -o "work/buildings/${{ matrix.city }}.parquet"; then
               exit 0
             fi
-            sleep $((attempt * 20))
+            rm -f "work/buildings/${{ matrix.city }}.parquet"
+            sleep $((attempt * 30))
           done
           exit 1
       - run: |
@@ -58,7 +59,7 @@ jobs:
   validate:
     needs: features
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v5
         with:
