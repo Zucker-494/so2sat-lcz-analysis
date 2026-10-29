@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 150
     strategy:
       fail-fast: false
-      max-parallel: 3
+      max-parallel: 1
       matrix:
         city: [guangzhou, jakarta, moscow, mumbai, munich, nairobi, sanfrancisco, santiago, sydney, tehran]
     steps:
@@ -35,8 +35,17 @@ jobs:
           BBOX=$(python qc/build_city_bbox.py --city "${{ matrix.city }}")
           echo "bbox=$BBOX" >> "$GITHUB_OUTPUT"
       - name: Download buildings
+        shell: bash
         run: |
-          overturemaps download --bbox="${{ steps.bbox.outputs.bbox }}" --type=building             --release=2026-10-21.0 -f geoparquet -o "work/buildings/${{ matrix.city }}.parquet"
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if overturemaps download --bbox="${{ steps.bbox.outputs.bbox }}" --type=building --release=2026-10-21.0 -f geoparquet -o "work/buildings/${{ matrix.city }}.parquet"; then
+              exit 0
+            fi
+            rm -f "work/buildings/${{ matrix.city }}.parquet"
+            sleep $((attempt * 30))
+          done
+          exit 1
       - name: Build hard features
         run: |
           python method/build_zoning_features.py --city "${{ matrix.city }}"             --buildings "work/buildings/${{ matrix.city }}.parquet"             --output "work/hard/${{ matrix.city }}.parquet"
