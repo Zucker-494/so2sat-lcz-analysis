@@ -64,17 +64,17 @@ def metrics(pred,y):
     corr=pred==y[:,None]
     canon=corr[:,0]
     alt=corr[:,1:]
-    pier=corr.any(1)&(~corr).any(1)
+    zoning_sensitivity=corr.any(1)&(~corr).any(1)
     disagree=np.array([len(set(row.tolist()))>1 for row in pred])
     return {
         "accuracy":accuracy_score(y,pred[:,0]),
         "balanced_accuracy":balanced_accuracy_score(y,pred[:,0]),
         "macro_f1":f1_score(y,pred[:,0],average="macro",zero_division=0),
-        "pier":pier.mean(),
+        "zoning_sensitivity":zoning_sensitivity.mean(),
         "correct_to_wrong":(canon&(~alt).any(1)).mean(),
         "wrong_to_correct":((~canon)&alt.any(1)).mean(),
         "disagreement":disagree.mean(),
-    }, corr, canon, alt, pier, disagree
+    }, corr, canon, alt, zoning_sensitivity, disagree
 
 def cluster_bootstrap(citydf, metric, rng):
     d=(citydf[f"selected_{metric}"]-citydf[f"baseline_{metric}"]).to_numpy(float)
@@ -115,7 +115,7 @@ def main():
                 raise ValueError(f"selection missing {city} {delta}")
             alpha=float(s.iloc[0].selected_alpha)
             pred=predict(y,hp,cp,alpha)
-            m,corr,canon,alt,pier,disagree=metrics(pred,y)
+            m,corr,canon,alt,zoning_sensitivity,disagree=metrics(pred,y)
 
             row={"city":city,"delta_pp":delta,"selected_alpha":alpha,"n":len(y)}
             for k,v in base_m.items(): row[f"baseline_{k}"]=v
@@ -126,15 +126,15 @@ def main():
 
             # Recompute baseline indicators for the LCZ class comparison.
             bcorr=base_pred==y[:,None]
-            bpier=bcorr.any(1)&(~bcorr).any(1)
+            bzoning_sensitivity=bcorr.any(1)&(~bcorr).any(1)
             for label in sorted(np.unique(y)):
                 mask=y==label
                 class_rows.append({
                     "city":city,"delta_pp":delta,"label":int(label),"n":int(mask.sum()),
                     "baseline_accuracy":float((base_pred[mask,0]==y[mask]).mean()),
                     "selected_accuracy":float((pred[mask,0]==y[mask]).mean()),
-                    "baseline_pier":float(bpier[mask].mean()),
-                    "selected_pier":float(pier[mask].mean()),
+                    "baseline_zoning_sensitivity":float(bzoning_sensitivity[mask].mean()),
+                    "selected_zoning_sensitivity":float(zoning_sensitivity[mask].mean()),
                 })
 
     out=Path(args.out_dir); out.mkdir(parents=True,exist_ok=True)
@@ -145,7 +145,7 @@ def main():
 
     rng=np.random.default_rng(SEED)
     inf=[]; agg=[]
-    metrics_list=["accuracy","balanced_accuracy","macro_f1","pier","correct_to_wrong","disagreement"]
+    metrics_list=["accuracy","balanced_accuracy","macro_f1","zoning_sensitivity","correct_to_wrong","disagreement"]
     for delta,g in citydf.groupby("delta_pp"):
         a={
             "delta_pp":delta,
@@ -165,7 +165,7 @@ def main():
                 "city_cluster_bootstrap_ci95_high":hi,
                 "cities_improved":int((g[f"selected_{metric}"]>g[f"baseline_{metric}"]).sum()) if metric in ("accuracy","balanced_accuracy","macro_f1") else int((g[f"selected_{metric}"]<g[f"baseline_{metric}"]).sum()),
             })
-        a["pier_relative_reduction"]=(a["baseline_pier"]-a["selected_pier"])/a["baseline_pier"]
+        a["zoning_sensitivity_relative_reduction"]=(a["baseline_zoning_sensitivity"]-a["selected_zoning_sensitivity"])/a["baseline_zoning_sensitivity"]
         a["ctw_relative_reduction"]=(a["baseline_correct_to_wrong"]-a["selected_correct_to_wrong"])/a["baseline_correct_to_wrong"]
         agg.append(a)
 
@@ -177,13 +177,13 @@ def main():
         .agg(
             baseline_accuracy=("baseline_accuracy","mean"),
             selected_accuracy=("selected_accuracy","mean"),
-            baseline_pier=("baseline_pier","mean"),
-            selected_pier=("selected_pier","mean"),
+            baseline_zoning_sensitivity=("baseline_zoning_sensitivity","mean"),
+            selected_zoning_sensitivity=("selected_zoning_sensitivity","mean"),
             cities=("city","nunique"),
             total_n=("n","sum")
         ))
     class_agg["accuracy_change_pp"]=100*(class_agg.selected_accuracy-class_agg.baseline_accuracy)
-    class_agg["pier_change_pp"]=100*(class_agg.selected_pier-class_agg.baseline_pier)
+    class_agg["zoning_sensitivity_change_pp"]=100*(class_agg.selected_zoning_sensitivity-class_agg.baseline_zoning_sensitivity)
     class_agg.to_csv(out/"class_aggregate_summary.csv",index=False)
 
 if __name__=="__main__":
