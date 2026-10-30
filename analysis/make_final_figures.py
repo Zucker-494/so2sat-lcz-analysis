@@ -184,7 +184,7 @@ plt.close(fig)
 
 
 # Figure 2
-fig, ax = plt.subplots(figsize=(7.6, 6.1))
+fig, ax = plt.subplots(figsize=(8.3, 6.0))
 x = city["accuracy_change_pp"].to_numpy()
 y = 100 * (city["selected_zoning_sensitivity"] - city["baseline_zoning_sensitivity"]).to_numpy()
 
@@ -193,28 +193,48 @@ point_colors = [
     for value in x
 ]
 
-ax.axvspan(-0.5, max(0.8, x.max() + 0.25), color=COL_POSITIVE, alpha=0.06, zorder=0)
-ax.scatter(x, y, s=58, c=point_colors, edgecolors="white", linewidths=0.8, zorder=3)
+ax.axvspan(-0.5, max(1.05, x.max() + 0.18), color=COL_POSITIVE, alpha=0.05, zorder=0)
+ax.scatter(x, y, s=64, c=point_colors, edgecolors="white", linewidths=0.9, zorder=3)
 
+# Manual label offsets keep city abbreviations clear of axes and neighboring points.
+label_offsets = {
+    "guangzhou": (-18, 7),
+    "jakarta": (8, -11),
+    "moscow": (8, 7),
+    "mumbai": (-22, 7),
+    "munich": (8, -8),
+    "nairobi": (8, 7),
+    "sanfrancisco": (8, 7),
+    "santiago": (8, 7),
+    "sydney": (-22, 7),
+    "tehran": (8, 7),
+}
 for _, row in city.iterrows():
+    dx, dy = label_offsets.get(row["city"], (7, 6))
     ax.annotate(
         abbr.get(row["city"], row["city"]),
         (
             row["accuracy_change_pp"],
             100 * (row["selected_zoning_sensitivity"] - row["baseline_zoning_sensitivity"]),
         ),
-        xytext=(5, 4),
+        xytext=(dx, dy),
         textcoords="offset points",
-        fontsize=8,
+        fontsize=8.3,
+        ha="center" if dx < 0 else "left",
+        va="center",
+        clip_on=False,
     )
 
 ax.axvline(-0.5, color=COL_NEGATIVE, linestyle="--", linewidth=1.2)
 ax.axvline(0, color="#555555", linewidth=0.9)
 ax.axhline(0, color="#555555", linewidth=0.9)
-ax.set_xlabel("Accuracy change in outer city (percentage points)")
-ax.set_ylabel("Change in zoning sensitivity in outer city (percentage points)")
-ax.set_title("Accuracy and zoning sensitivity across cities")
+ax.set_xlabel("Accuracy change (percentage points)", labelpad=8)
+ax.set_ylabel("Zoning sensitivity change (percentage points)", labelpad=10)
+ax.set_title("City-level accuracy and zoning sensitivity", pad=14)
 clean_axis(ax, grid_axis="both")
+
+ax.set_xlim(min(-0.62, x.min() - 0.12), max(1.05, x.max() + 0.16))
+ax.set_ylim(y.min() - 0.55, 0.45)
 
 ax.legend(
     handles=[
@@ -248,16 +268,21 @@ ax.legend(
         ),
     ],
     frameon=False,
-    loc="lower left",
+    ncol=3,
+    loc="lower center",
+    bbox_to_anchor=(0.5, 1.02),
+    borderaxespad=0.0,
+    columnspacing=1.4,
+    handletextpad=0.5,
 )
 
-fig.tight_layout()
+fig.subplots_adjust(left=0.15, right=0.98, bottom=0.13, top=0.80)
 fig.savefig(OUT / "fig2_city_results.png", **SAVE)
 plt.close(fig)
 
 
 # Figure 3
-fig, ax = plt.subplots(figsize=(7.8, 5.3))
+fig, ax = plt.subplots(figsize=(8.2, 5.7))
 labels = cls["label"].astype(int).to_numpy()
 vals = cls["accuracy_change_pp"].to_numpy()
 bar_colors = [COL_POSITIVE if value >= 0 else COL_NEGATIVE for value in vals]
@@ -265,92 +290,112 @@ bars = ax.bar(
     labels,
     vals,
     color=bar_colors,
-    width=0.68,
+    width=0.64,
     edgecolor="white",
-    linewidth=0.6,
+    linewidth=0.7,
 )
 
 ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xticks(labels)
-ax.set_xlabel("LCZ built class")
-ax.set_ylabel("Accuracy change (percentage points)")
-ax.set_title("Accuracy change by LCZ class", pad=12)
+ax.set_xlabel("LCZ built class", labelpad=8)
+ax.set_ylabel("Accuracy change (percentage points)", labelpad=10)
+ax.set_title("Accuracy change by LCZ class", pad=22)
 clean_axis(ax)
 
+# Extra vertical space keeps value labels away from the zero line and plot boundary.
+ax.set_ylim(-0.30, 1.48)
 for bar, value in zip(bars, vals):
     x0 = bar.get_x() + bar.get_width() / 2
-    offset = 4 if value >= 0 else -12
-    ax.annotate(
+    if value >= 0:
+        y0 = value + 0.045
+        va = "bottom"
+    else:
+        y0 = value - 0.045
+        va = "top"
+    ax.text(
+        x0,
+        y0,
         f"{value:+.2f}",
-        (x0, value),
-        xytext=(0, offset),
-        textcoords="offset points",
         ha="center",
-        va="bottom" if value >= 0 else "top",
-        fontsize=7.3,
+        va=va,
+        fontsize=8.1,
+        clip_on=False,
     )
 
-fig.legend(
+ax.legend(
     handles=[
         Patch(facecolor=COL_POSITIVE, label="Increase"),
         Patch(facecolor=COL_NEGATIVE, label="Decrease"),
     ],
     frameon=False,
     ncol=2,
-    loc="upper center",
-    bbox_to_anchor=(0.5, 0.93),
+    loc="lower center",
+    bbox_to_anchor=(0.5, 1.015),
+    borderaxespad=0.0,
+    columnspacing=1.6,
 )
 
-fig.tight_layout(rect=(0, 0, 1, 0.86))
+fig.subplots_adjust(left=0.14, right=0.98, bottom=0.14, top=0.80)
 fig.savefig(OUT / "fig3_class_accuracy.png", **SAVE)
 plt.close(fig)
 
 
 # Figure 4
-fig, ax = plt.subplots(figsize=(7.8, 5.3))
+fig, ax = plt.subplots(figsize=(8.2, 5.7))
 vals = cls["zoning_sensitivity_change_pp"].to_numpy()
 bar_colors = [COL_POSITIVE if value <= 0 else COL_NEGATIVE for value in vals]
 bars = ax.bar(
     labels,
     vals,
     color=bar_colors,
-    width=0.68,
+    width=0.64,
     edgecolor="white",
-    linewidth=0.6,
+    linewidth=0.7,
 )
 
 ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xticks(labels)
-ax.set_xlabel("LCZ built class")
-ax.set_ylabel("Change in zoning sensitivity (percentage points)")
-ax.set_title("Change in zoning sensitivity by LCZ class", pad=12)
+ax.set_xlabel("LCZ built class", labelpad=8)
+ax.set_ylabel("Zoning sensitivity change (percentage points)", labelpad=10)
+ax.set_title("Zoning sensitivity by LCZ class", pad=22)
 clean_axis(ax)
 
+# Labels sit beyond the bar ends rather than close to the zero axis.
+lower = min(-6.35, vals.min() - 0.55)
+upper = max(0.65, vals.max() + 0.55)
+ax.set_ylim(lower, upper)
 for bar, value in zip(bars, vals):
     x0 = bar.get_x() + bar.get_width() / 2
-    offset = 4 if value >= 0 else -12
-    ax.annotate(
+    if value <= 0:
+        y0 = value - 0.12
+        va = "top"
+    else:
+        y0 = value + 0.12
+        va = "bottom"
+    ax.text(
+        x0,
+        y0,
         f"{value:+.2f}",
-        (x0, value),
-        xytext=(0, offset),
-        textcoords="offset points",
         ha="center",
-        va="bottom" if value >= 0 else "top",
-        fontsize=7.3,
+        va=va,
+        fontsize=8.1,
+        clip_on=False,
     )
 
-fig.legend(
+ax.legend(
     handles=[
         Patch(facecolor=COL_POSITIVE, label="Lower zoning sensitivity"),
         Patch(facecolor=COL_NEGATIVE, label="Higher zoning sensitivity"),
     ],
     frameon=False,
     ncol=2,
-    loc="upper center",
-    bbox_to_anchor=(0.5, 0.93),
+    loc="lower center",
+    bbox_to_anchor=(0.5, 1.015),
+    borderaxespad=0.0,
+    columnspacing=1.6,
 )
 
-fig.tight_layout(rect=(0, 0, 1, 0.86))
+fig.subplots_adjust(left=0.15, right=0.98, bottom=0.14, top=0.80)
 fig.savefig(OUT / "fig4_class_zoning_sensitivity.png", **SAVE)
 plt.close(fig)
 
