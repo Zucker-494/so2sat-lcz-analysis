@@ -1,4 +1,4 @@
-split,sample_index,city,model,label,hard_pier,continuous_pier,hard_disagreement,continuous_disagreement,hard_correct_to_wrong,continuous_correct_to_wrong,hard_wrong_to_correct,continuous_wrong_to_correct,hard_canonical_correct,continuous_canonical_correct
+split,sample_index,city,model,label,hard_zoning_sensitivity,continuous_zoning_sensitivity,hard_disagreement,continuous_disagreement,hard_correct_to_wrong,continuous_correct_to_wrong,hard_wrong_to_correct,continuous_wrong_to_correct,hard_canonical_correct,continuous_canonical_correct
 testing,26,guangzhou,hgb,8,0,0,0,0,0,0,0,0,1,1
 testing,33,guangzhou,hgb,4,1,1,1,1,0,0,1,1,0,0
 testing,37,guangzhou,hgb,4,1,0,1,0,1,0,0,0,1,0
