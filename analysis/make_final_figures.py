@@ -169,15 +169,6 @@ for start, end in [
         )
     )
 
-ax.text(
-    5.60,
-    4.75,
-    "Reducing zoning sensitivity under fixed spatial support",
-    ha="center",
-    fontsize=12.5,
-    weight="semibold",
-)
-
 fig.tight_layout()
 fig.savefig(OUT / "fig1_method.png", **SAVE)
 plt.close(fig)
@@ -299,7 +290,6 @@ ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xticks(labels)
 ax.set_xlabel("LCZ built class", labelpad=8)
 ax.set_ylabel("Accuracy change (percentage points)", labelpad=10)
-ax.set_title("Accuracy change by LCZ class", pad=22)
 clean_axis(ax)
 
 # Extra vertical space keeps value labels away from the zero line and plot boundary.
@@ -330,12 +320,12 @@ ax.legend(
     frameon=False,
     ncol=2,
     loc="lower center",
-    bbox_to_anchor=(0.5, 1.015),
+    bbox_to_anchor=(0.5, 1.01),
     borderaxespad=0.0,
     columnspacing=1.6,
 )
 
-fig.subplots_adjust(left=0.14, right=0.98, bottom=0.14, top=0.80)
+fig.subplots_adjust(left=0.14, right=0.98, bottom=0.14, top=0.88)
 fig.savefig(OUT / "fig4_class_accuracy.png", **SAVE)
 plt.close(fig)
 
@@ -357,7 +347,6 @@ ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xticks(labels)
 ax.set_xlabel("LCZ built class", labelpad=8)
 ax.set_ylabel("Zoning sensitivity change (percentage points)", labelpad=10)
-ax.set_title("Zoning sensitivity by LCZ class", pad=22)
 clean_axis(ax)
 
 # Labels sit beyond the bar ends rather than close to the zero axis.
@@ -390,12 +379,12 @@ ax.legend(
     frameon=False,
     ncol=2,
     loc="lower center",
-    bbox_to_anchor=(0.5, 1.015),
+    bbox_to_anchor=(0.5, 1.01),
     borderaxespad=0.0,
     columnspacing=1.6,
 )
 
-fig.subplots_adjust(left=0.15, right=0.98, bottom=0.14, top=0.80)
+fig.subplots_adjust(left=0.15, right=0.98, bottom=0.14, top=0.88)
 fig.savefig(OUT / "fig5_class_zoning_sensitivity.png", **SAVE)
 plt.close(fig)
 
@@ -493,13 +482,6 @@ ax.set_xlabel("Change in zoning sensitivity in outer city (pp)")
 ax.set_title("B  Zoning sensitivity", loc="left", weight="semibold")
 clean_axis(ax, grid_axis="x")
 
-fig.suptitle(
-    "Comparison of accuracy rules across cities",
-    fontsize=12.5,
-    weight="semibold",
-    y=1.01,
-)
-
 fig.legend(
     handles=[
         Line2D(
@@ -534,9 +516,9 @@ fig.legend(
     frameon=False,
     ncol=3,
     loc="upper center",
-    bbox_to_anchor=(0.5, 0.965),
+    bbox_to_anchor=(0.5, 0.995),
 )
 
-fig.tight_layout(rect=(0, 0, 1, 0.91))
+fig.tight_layout(rect=(0, 0, 1, 0.94))
 fig.savefig(OUT / "fig3_accuracy_rule_comparison.png", **SAVE)
 plt.close(fig)
