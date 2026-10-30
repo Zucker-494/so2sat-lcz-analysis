@@ -131,7 +131,7 @@ boxes = [
         1.35,
         2.15,
         2.30,
-        "Nested validation by city\nminimize PIER\nmaximum city accuracy\nloss ≤ 0.5 pp",
+        "Nested validation by city\nminimize zoning sensitivity\nmaximum city accuracy\nloss ≤ 0.5 pp",
         COL_POSITIVE,
         "#EAF5EC",
     ),
@@ -186,7 +186,7 @@ plt.close(fig)
 # Figure 2
 fig, ax = plt.subplots(figsize=(7.6, 6.1))
 x = city["accuracy_change_pp"].to_numpy()
-y = 100 * (city["selected_pier"] - city["baseline_pier"]).to_numpy()
+y = 100 * (city["selected_zoning_sensitivity"] - city["baseline_zoning_sensitivity"]).to_numpy()
 
 point_colors = [
     COL_POSITIVE if value >= 0 else (COL_MEAN_RULE if value >= -0.5 else COL_NEGATIVE)
@@ -201,7 +201,7 @@ for _, row in city.iterrows():
         abbr.get(row["city"], row["city"]),
         (
             row["accuracy_change_pp"],
-            100 * (row["selected_pier"] - row["baseline_pier"]),
+            100 * (row["selected_zoning_sensitivity"] - row["baseline_zoning_sensitivity"]),
         ),
         xytext=(5, 4),
         textcoords="offset points",
@@ -212,7 +212,7 @@ ax.axvline(-0.5, color=COL_NEGATIVE, linestyle="--", linewidth=1.2)
 ax.axvline(0, color="#555555", linewidth=0.9)
 ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xlabel("Accuracy change in outer city (percentage points)")
-ax.set_ylabel("PIER change in outer city (percentage points)")
+ax.set_ylabel("zoning sensitivity change in outer city (percentage points)")
 ax.set_title("Accuracy and zoning sensitivity across cities")
 clean_axis(ax, grid_axis="both")
 
@@ -308,7 +308,7 @@ plt.close(fig)
 
 # Figure 4
 fig, ax = plt.subplots(figsize=(7.8, 5.3))
-vals = cls["pier_change_pp"].to_numpy()
+vals = cls["zoning_sensitivity_change_pp"].to_numpy()
 bar_colors = [COL_POSITIVE if value <= 0 else COL_NEGATIVE for value in vals]
 bars = ax.bar(
     labels,
@@ -322,8 +322,8 @@ bars = ax.bar(
 ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xticks(labels)
 ax.set_xlabel("LCZ built class")
-ax.set_ylabel("PIER change (percentage points)")
-ax.set_title("PIER change by LCZ class", pad=12)
+ax.set_ylabel("zoning sensitivity change (percentage points)")
+ax.set_title("zoning sensitivity change by LCZ class", pad=12)
 clean_axis(ax)
 
 for bar, value in zip(bars, vals):
@@ -341,8 +341,8 @@ for bar, value in zip(bars, vals):
 
 fig.legend(
     handles=[
-        Patch(facecolor=COL_POSITIVE, label="Lower PIER"),
-        Patch(facecolor=COL_NEGATIVE, label="Higher PIER"),
+        Patch(facecolor=COL_POSITIVE, label="Lower zoning sensitivity"),
+        Patch(facecolor=COL_NEGATIVE, label="Higher zoning sensitivity"),
     ],
     frameon=False,
     ncol=2,
@@ -351,24 +351,24 @@ fig.legend(
 )
 
 fig.tight_layout(rect=(0, 0, 1, 0.86))
-fig.savefig(OUT / "fig4_class_pier.png", **SAVE)
+fig.savefig(OUT / "fig4_class_zoning_sensitivity.png", **SAVE)
 plt.close(fig)
 
 
 # Figure 5
 cmp = mean_city[
-    ["outer_city", "accuracy_change_pp", "baseline_pier", "selected_pier"]
+    ["outer_city", "accuracy_change_pp", "baseline_zoning_sensitivity", "selected_zoning_sensitivity"]
 ].merge(
-    max_city[["outer_city", "accuracy_change_pp", "baseline_pier", "selected_pier"]],
+    max_city[["outer_city", "accuracy_change_pp", "baseline_zoning_sensitivity", "selected_zoning_sensitivity"]],
     on="outer_city",
     suffixes=("_mean", "_max"),
 )
 
-cmp["pier_change_mean_pp"] = 100 * (
-    cmp["selected_pier_mean"] - cmp["baseline_pier_mean"]
+cmp["zoning_sensitivity_change_mean_pp"] = 100 * (
+    cmp["selected_zoning_sensitivity_mean"] - cmp["baseline_zoning_sensitivity_mean"]
 )
-cmp["pier_change_max_pp"] = 100 * (
-    cmp["selected_pier_max"] - cmp["baseline_pier_max"]
+cmp["zoning_sensitivity_change_max_pp"] = 100 * (
+    cmp["selected_zoning_sensitivity_max"] - cmp["baseline_zoning_sensitivity_max"]
 )
 cmp = cmp.sort_values("accuracy_change_pp_mean", ascending=True).reset_index(drop=True)
 
@@ -417,14 +417,14 @@ clean_axis(ax, grid_axis="x")
 ax = axes[1]
 for i, row in cmp.iterrows():
     ax.plot(
-        [row["pier_change_mean_pp"], row["pier_change_max_pp"]],
+        [row["zoning_sensitivity_change_mean_pp"], row["zoning_sensitivity_change_max_pp"]],
         [i, i],
         color="#BFC5CC",
         linewidth=1.0,
         zorder=1,
     )
 ax.scatter(
-    cmp["pier_change_mean_pp"],
+    cmp["zoning_sensitivity_change_mean_pp"],
     ypos,
     s=48,
     marker="s",
@@ -434,7 +434,7 @@ ax.scatter(
     zorder=3,
 )
 ax.scatter(
-    cmp["pier_change_max_pp"],
+    cmp["zoning_sensitivity_change_max_pp"],
     ypos,
     s=52,
     marker="o",
@@ -444,8 +444,8 @@ ax.scatter(
     zorder=3,
 )
 ax.axvline(0, color="#555555", linewidth=0.9)
-ax.set_xlabel("PIER change in outer city (pp)")
-ax.set_title("B  PIER", loc="left", weight="semibold")
+ax.set_xlabel("zoning sensitivity change in outer city (pp)")
+ax.set_title("B  Zoning sensitivity", loc="left", weight="semibold")
 clean_axis(ax, grid_axis="x")
 
 fig.suptitle(
