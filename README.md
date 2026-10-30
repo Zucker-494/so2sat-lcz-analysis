@@ -53,7 +53,7 @@ Mean values across cities:
 - accuracy: 53.205% to 53.390%;
 - balanced accuracy: 43.779% to 44.228%;
 - macro F1: 34.614% to 34.853%;
-- zoning-sensitive patches: 31.605% to 27.856%;
+- patches with changing prediction correctness: 31.605% to 27.856%;
 - correct to wrong rate: 16.672% to 14.504%;
 - prediction disagreement: 42.043% to 37.281%.
 
