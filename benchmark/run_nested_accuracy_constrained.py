@@ -73,7 +73,7 @@ def evaluate_pair(hm,cm,hard,cont,city,hfeat,cfeat,alpha):
     pred=np.column_stack(pred)
 
     correct=pred==y[:,None]
-    pier=correct.any(1)&(~correct).any(1)
+    zoning_sensitivity=correct.any(1)&(~correct).any(1)
     disagreement=np.array([len(set(r.tolist()))>1 for r in pred])
     canon=correct[:,0]
     alt=correct[:,1:]
@@ -81,7 +81,7 @@ def evaluate_pair(hm,cm,hard,cont,city,hfeat,cfeat,alpha):
         "accuracy":accuracy_score(y,pred[:,0]),
         "balanced_accuracy":balanced_accuracy_score(y,pred[:,0]),
         "macro_f1":f1_score(y,pred[:,0],average="macro",zero_division=0),
-        "pier":float(pier.mean()),
+        "zoning_sensitivity":float(zoning_sensitivity.mean()),
         "disagreement":float(disagreement.mean()),
         "correct_to_wrong":float((canon&(~alt).any(1)).mean()),
         "wrong_to_correct":float(((~canon)&alt.any(1)).mean()),
@@ -100,7 +100,7 @@ def select_alpha_nested(hard,cont,outer_train,model_name,hfeat,cfeat):
     inner=pd.DataFrame(inner_rows)
     agg=(inner.groupby("alpha",as_index=False)
          .agg(mean_accuracy=("accuracy","mean"),
-              mean_pier=("pier","mean"),
+              mean_zoning_sensitivity=("zoning_sensitivity","mean"),
               mean_correct_to_wrong=("correct_to_wrong","mean"),
               mean_disagreement=("disagreement","mean"),
               min_city_accuracy=("accuracy","min")))
@@ -111,7 +111,7 @@ def select_alpha_nested(hard,cont,outer_train,model_name,hfeat,cfeat):
         floor=base.mean_accuracy-delta/100.0
         feasible=agg[agg.mean_accuracy>=floor].copy()
         feasible=feasible.sort_values(
-            ["mean_pier","mean_correct_to_wrong","mean_accuracy"],
+            ["mean_zoning_sensitivity","mean_correct_to_wrong","mean_accuracy"],
             ascending=[True,True,False]
         )
         best=feasible.iloc[0]
@@ -119,7 +119,7 @@ def select_alpha_nested(hard,cont,outer_train,model_name,hfeat,cfeat):
             "alpha":float(best.alpha),
             "inner_baseline_accuracy":float(base.mean_accuracy),
             "inner_selected_accuracy":float(best.mean_accuracy),
-            "inner_selected_pier":float(best.mean_pier),
+            "inner_selected_zoning_sensitivity":float(best.mean_zoning_sensitivity),
             "inner_selected_correct_to_wrong":float(best.mean_correct_to_wrong),
         }
     return selections,inner,agg
@@ -169,10 +169,10 @@ def main():
                     "baseline_accuracy":base["accuracy"],
                     "selected_accuracy":m["accuracy"],
                     "accuracy_change_pp":100*(m["accuracy"]-base["accuracy"]),
-                    "baseline_pier":base["pier"],
-                    "selected_pier":m["pier"],
-                    "pier_relative_reduction":(
-                        (base["pier"]-m["pier"])/base["pier"] if base["pier"]>0 else np.nan
+                    "baseline_zoning_sensitivity":base["zoning_sensitivity"],
+                    "selected_zoning_sensitivity":m["zoning_sensitivity"],
+                    "zoning_sensitivity_relative_reduction":(
+                        (base["zoning_sensitivity"]-m["zoning_sensitivity"])/base["zoning_sensitivity"] if base["zoning_sensitivity"]>0 else np.nan
                     ),
                     "baseline_correct_to_wrong":base["correct_to_wrong"],
                     "selected_correct_to_wrong":m["correct_to_wrong"],
@@ -201,9 +201,9 @@ def main():
              mean_baseline_accuracy=("baseline_accuracy","mean"),
              mean_selected_accuracy=("selected_accuracy","mean"),
              mean_accuracy_change_pp=("accuracy_change_pp","mean"),
-             mean_baseline_pier=("baseline_pier","mean"),
-             mean_selected_pier=("selected_pier","mean"),
-             mean_pier_relative_reduction=("pier_relative_reduction","mean"),
+             mean_baseline_zoning_sensitivity=("baseline_zoning_sensitivity","mean"),
+             mean_selected_zoning_sensitivity=("selected_zoning_sensitivity","mean"),
+             mean_zoning_sensitivity_relative_reduction=("zoning_sensitivity_relative_reduction","mean"),
              mean_baseline_correct_to_wrong=("baseline_correct_to_wrong","mean"),
              mean_selected_correct_to_wrong=("selected_correct_to_wrong","mean"),
              mean_baseline_disagreement=("baseline_disagreement","mean"),
@@ -218,7 +218,7 @@ def main():
             "model":model,
             "delta_pp":delta,
             "cities_within_realized_accuracy_constraint":int((g.accuracy_change_pp>=-float(delta)).sum()),
-            "cities_pier_reduced":int((g.selected_pier<g.baseline_pier).sum()),
+            "cities_zoning_sensitivity_reduced":int((g.selected_zoning_sensitivity<g.baseline_zoning_sensitivity).sum()),
             "cities_ctw_reduced":int((g.selected_correct_to_wrong<g.baseline_correct_to_wrong).sum()),
         })
     counts=pd.DataFrame(counts)
