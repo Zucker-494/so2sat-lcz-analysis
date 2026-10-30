@@ -109,7 +109,7 @@ def evaluate_zoning_model(model, train, test, feat_cols, strategy, model_name, t
         "canonical_macro_f1": float(z0.macro_f1),
         "mean_zoning_accuracy": float(zdf.accuracy.mean()),
         "worst_zoning_accuracy": float(zdf.accuracy.min()),
-        "pier": float(exposed.mean()),
+        "zoning_sensitivity": float(exposed.mean()),
         "prediction_disagreement": float(disagree.mean()),
         "canonical_correct_any_alt_wrong_rate_all": float(
             (canonical_correct & any_alt_wrong).mean()
@@ -135,7 +135,7 @@ def evaluate_invariant(model, train_z0, test_z0, model_name, test_city):
         "canonical_macro_f1": f1_score(yte, pred, average="macro", zero_division=0),
         "mean_zoning_accuracy": accuracy_score(yte, pred),
         "worst_zoning_accuracy": accuracy_score(yte, pred),
-        "pier": 0.0,
+        "zoning_sensitivity": 0.0,
         "prediction_disagreement": 0.0,
         "canonical_correct_any_alt_wrong_rate_all": 0.0,
         "canonical_wrong_any_alt_correct_rate_all": 0.0,
@@ -214,7 +214,7 @@ def main():
             mean_accuracy=("canonical_accuracy", "mean"),
             mean_balanced_accuracy=("canonical_balanced_accuracy", "mean"),
             mean_macro_f1=("canonical_macro_f1", "mean"),
-            mean_pier=("pier", "mean"),
+            mean_zoning_sensitivity=("zoning_sensitivity", "mean"),
             mean_disagreement=("prediction_disagreement", "mean"),
             mean_correct_to_wrong=("canonical_correct_any_alt_wrong_rate_all", "mean"),
             mean_wrong_to_correct=("canonical_wrong_any_alt_correct_rate_all", "mean"),
