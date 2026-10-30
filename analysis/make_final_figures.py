@@ -212,7 +212,7 @@ ax.axvline(-0.5, color=COL_NEGATIVE, linestyle="--", linewidth=1.2)
 ax.axvline(0, color="#555555", linewidth=0.9)
 ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xlabel("Accuracy change in outer city (percentage points)")
-ax.set_ylabel("zoning sensitivity change in outer city (percentage points)")
+ax.set_ylabel("Change in zoning sensitivity in outer city (percentage points)")
 ax.set_title("Accuracy and zoning sensitivity across cities")
 clean_axis(ax, grid_axis="both")
 
@@ -322,8 +322,8 @@ bars = ax.bar(
 ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xticks(labels)
 ax.set_xlabel("LCZ built class")
-ax.set_ylabel("zoning sensitivity change (percentage points)")
-ax.set_title("zoning sensitivity change by LCZ class", pad=12)
+ax.set_ylabel("Change in zoning sensitivity (percentage points)")
+ax.set_title("Change in zoning sensitivity by LCZ class", pad=12)
 clean_axis(ax)
 
 for bar, value in zip(bars, vals):
@@ -444,7 +444,7 @@ ax.scatter(
     zorder=3,
 )
 ax.axvline(0, color="#555555", linewidth=0.9)
-ax.set_xlabel("zoning sensitivity change in outer city (pp)")
+ax.set_xlabel("Change in zoning sensitivity in outer city (pp)")
 ax.set_title("B  Zoning sensitivity", loc="left", weight="semibold")
 clean_axis(ax, grid_axis="x")
 
