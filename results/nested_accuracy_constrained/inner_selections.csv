@@ -1,4 +1,4 @@
-outer_city,model,delta_pp,alpha,inner_baseline_accuracy,inner_selected_accuracy,inner_selected_pier,inner_selected_correct_to_wrong
+outer_city,model,delta_pp,alpha,inner_baseline_accuracy,inner_selected_accuracy,inner_selected_zoning_sensitivity,inner_selected_correct_to_wrong
 guangzhou,hgb,0.0,0.55,0.5482376198681566,0.5493887600009705,0.14775734285548653,0.0777986640111656
 guangzhou,hgb,0.5,0.6,0.5482376198681566,0.5470806933865958,0.12866031619761242,0.0673701055576983
 guangzhou,hgb,1.0,0.7,0.5482376198681566,0.5404758671022919,0.0898412198465174,0.045723177012181225
