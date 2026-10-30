@@ -230,8 +230,13 @@ ax.axvline(0, color="#555555", linewidth=0.9)
 ax.axhline(0, color="#555555", linewidth=0.9)
 ax.set_xlabel("Accuracy change (percentage points)", labelpad=8)
 ax.set_ylabel("Zoning sensitivity change (percentage points)", labelpad=10)
-ax.set_title("City-level accuracy and zoning sensitivity", pad=14)
 clean_axis(ax, grid_axis="both")
+
+fig.suptitle(
+    "City-level accuracy and zoning sensitivity",
+    fontsize=12,
+    y=0.975,
+)
 
 ax.set_xlim(min(-0.62, x.min() - 0.12), max(1.05, x.max() + 0.16))
 ax.set_ylim(y.min() - 0.55, 0.45)
@@ -270,13 +275,13 @@ ax.legend(
     frameon=False,
     ncol=3,
     loc="lower center",
-    bbox_to_anchor=(0.5, 1.02),
+    bbox_to_anchor=(0.5, 1.085),
     borderaxespad=0.0,
     columnspacing=1.4,
     handletextpad=0.5,
 )
 
-fig.subplots_adjust(left=0.15, right=0.98, bottom=0.13, top=0.80)
+fig.subplots_adjust(left=0.15, right=0.98, bottom=0.13, top=0.75)
 fig.savefig(OUT / "fig2_city_results.png", **SAVE)
 plt.close(fig)
 
