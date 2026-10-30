@@ -43,7 +43,7 @@ def ordered(df, city, view_col, views):
 
 def metrics(pred, y):
     correct=pred==y[:,None]
-    pier=correct.any(1)&(~correct).any(1)
+    zoning_sensitivity=correct.any(1)&(~correct).any(1)
     disagree=np.array([len(set(r.tolist()))>1 for r in pred])
     canon=correct[:,0]
     alt=correct[:,1:]
@@ -51,7 +51,7 @@ def metrics(pred, y):
         "canonical_accuracy": accuracy_score(y,pred[:,0]),
         "canonical_balanced_accuracy": balanced_accuracy_score(y,pred[:,0]),
         "canonical_macro_f1": f1_score(y,pred[:,0],average="macro",zero_division=0),
-        "pier": float(pier.mean()),
+        "zoning_sensitivity": float(zoning_sensitivity.mean()),
         "disagreement": float(disagree.mean()),
         "correct_to_wrong": float((canon&(~alt).any(1)).mean()),
         "wrong_to_correct": float(((~canon)&alt.any(1)).mean()),
@@ -119,7 +119,7 @@ def main():
              mean_accuracy=("canonical_accuracy","mean"),
              mean_balanced_accuracy=("canonical_balanced_accuracy","mean"),
              mean_macro_f1=("canonical_macro_f1","mean"),
-             mean_pier=("pier","mean"),
+             mean_zoning_sensitivity=("zoning_sensitivity","mean"),
              mean_disagreement=("disagreement","mean"),
              mean_correct_to_wrong=("correct_to_wrong","mean"),
              min_city_accuracy=("canonical_accuracy","min"),
@@ -134,7 +134,7 @@ def main():
             floor=base.mean_accuracy-delta/100.0
             feasible=g[g.mean_accuracy>=floor].copy()
             feasible=feasible.sort_values(
-                ["mean_pier","mean_correct_to_wrong","mean_accuracy"],
+                ["mean_zoning_sensitivity","mean_correct_to_wrong","mean_accuracy"],
                 ascending=[True,True,False]
             )
             best=feasible.iloc[0]
@@ -142,12 +142,12 @@ def main():
                 "model":model_name,
                 "delta_pp":delta,
                 "baseline_accuracy":base.mean_accuracy,
-                "baseline_pier":base.mean_pier,
+                "baseline_zoning_sensitivity":base.mean_zoning_sensitivity,
                 "selected_alpha":best.alpha,
                 "selected_accuracy":best.mean_accuracy,
                 "accuracy_change_pp":100*(best.mean_accuracy-base.mean_accuracy),
-                "selected_pier":best.mean_pier,
-                "pier_relative_reduction":(base.mean_pier-best.mean_pier)/base.mean_pier if base.mean_pier>0 else np.nan,
+                "selected_zoning_sensitivity":best.mean_zoning_sensitivity,
+                "zoning_sensitivity_relative_reduction":(base.mean_zoning_sensitivity-best.mean_zoning_sensitivity)/base.mean_zoning_sensitivity if base.mean_zoning_sensitivity>0 else np.nan,
                 "selected_correct_to_wrong":best.mean_correct_to_wrong,
                 "selected_disagreement":best.mean_disagreement,
             })
