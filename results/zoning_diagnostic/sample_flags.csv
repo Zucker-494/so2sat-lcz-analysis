@@ -1,4 +1,4 @@
-split,sample_index,city,label,canonical_correct,pier_exposed,prediction_disagreement,canonical_correct_any_alt_wrong,canonical_wrong_any_alt_correct
+split,sample_index,city,label,canonical_correct,zoning_sensitivity_exposed,prediction_disagreement,canonical_correct_any_alt_wrong,canonical_wrong_any_alt_correct
 testing,26,guangzhou,8,1,1,1,1,0
 testing,33,guangzhou,4,0,0,0,0,0
 testing,37,guangzhou,4,0,0,1,0,0

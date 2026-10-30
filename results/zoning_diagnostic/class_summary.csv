@@ -1,4 +1,4 @@
-city,label,n,canonical_accuracy,pier,prediction_disagreement,canonical_correct_any_alt_wrong_rate_all,canonical_wrong_any_alt_correct_rate_all
+city,label,n,canonical_accuracy,zoning_sensitivity,prediction_disagreement,canonical_correct_any_alt_wrong_rate_all,canonical_wrong_any_alt_correct_rate_all
 guangzhou,1,20,0.0,0.0,0.2,0.0,0.0
 guangzhou,2,325,0.24923076923076923,0.21846153846153846,0.563076923076923,0.11692307692307692,0.10153846153846154
 guangzhou,3,194,0.015463917525773196,0.05670103092783505,0.4484536082474227,0.015463917525773196,0.041237113402061855
