@@ -341,7 +341,7 @@ ax.legend(
 )
 
 fig.subplots_adjust(left=0.14, right=0.98, bottom=0.14, top=0.80)
-fig.savefig(OUT / "fig3_class_accuracy.png", **SAVE)
+fig.savefig(OUT / "fig4_class_accuracy.png", **SAVE)
 plt.close(fig)
 
 
@@ -401,7 +401,7 @@ ax.legend(
 )
 
 fig.subplots_adjust(left=0.15, right=0.98, bottom=0.14, top=0.80)
-fig.savefig(OUT / "fig4_class_zoning_sensitivity.png", **SAVE)
+fig.savefig(OUT / "fig5_class_zoning_sensitivity.png", **SAVE)
 plt.close(fig)
 
 
@@ -543,5 +543,5 @@ fig.legend(
 )
 
 fig.tight_layout(rect=(0, 0, 1, 0.91))
-fig.savefig(OUT / "fig5_accuracy_rule_comparison.png", **SAVE)
+fig.savefig(OUT / "fig3_accuracy_rule_comparison.png", **SAVE)
 plt.close(fig)
