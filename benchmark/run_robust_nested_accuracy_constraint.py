@@ -68,11 +68,11 @@ def eval_alpha(y, hp, cp, alpha):
     corr = pred == y[:,None]
     canon = corr[:,0]
     alt = corr[:,1:]
-    pier = corr.any(1) & (~corr).any(1)
+    zoning_sensitivity = corr.any(1) & (~corr).any(1)
     disagree = np.array([len(set(r.tolist()))>1 for r in pred])
     return {
         "accuracy": float((pred[:,0]==y).mean()),
-        "pier": float(pier.mean()),
+        "zoning_sensitivity": float(zoning_sensitivity.mean()),
         "correct_to_wrong": float((canon & (~alt).any(1)).mean()),
         "disagreement": float(disagree.mean()),
     }
@@ -93,7 +93,7 @@ def choose_robust(inner, delta):
     x["loss_pp"] = 100*(x.base_acc-x.accuracy)
     by_alpha = x.groupby("alpha",as_index=False).agg(
         mean_accuracy=("accuracy","mean"),
-        mean_pier=("pier","mean"),
+        mean_zoning_sensitivity=("zoning_sensitivity","mean"),
         mean_ctw=("correct_to_wrong","mean"),
         mean_disagreement=("disagreement","mean"),
         worst_city_loss_pp=("loss_pp","max"),
@@ -102,7 +102,7 @@ def choose_robust(inner, delta):
     feasible = by_alpha[by_alpha.worst_city_loss_pp <= delta + 1e-12].copy()
     if feasible.empty:
         feasible = by_alpha[by_alpha.alpha==0].copy()
-    feasible = feasible.sort_values(["mean_pier","mean_ctw","mean_accuracy"],ascending=[True,True,False])
+    feasible = feasible.sort_values(["mean_zoning_sensitivity","mean_ctw","mean_accuracy"],ascending=[True,True,False])
     return feasible.iloc[0], by_alpha
 
 def main():
@@ -137,8 +137,8 @@ def main():
                     "inner_worst_city_loss_pp":float(best.worst_city_loss_pp),
                     "baseline_accuracy":base["accuracy"],"selected_accuracy":m["accuracy"],
                     "accuracy_change_pp":100*(m["accuracy"]-base["accuracy"]),
-                    "baseline_pier":base["pier"],"selected_pier":m["pier"],
-                    "pier_relative_reduction":((base["pier"]-m["pier"])/base["pier"] if base["pier"]>0 else np.nan),
+                    "baseline_zoning_sensitivity":base["zoning_sensitivity"],"selected_zoning_sensitivity":m["zoning_sensitivity"],
+                    "zoning_sensitivity_relative_reduction":((base["zoning_sensitivity"]-m["zoning_sensitivity"])/base["zoning_sensitivity"] if base["zoning_sensitivity"]>0 else np.nan),
                     "baseline_ctw":base["correct_to_wrong"],"selected_ctw":m["correct_to_wrong"],
                     "baseline_disagreement":base["disagreement"],"selected_disagreement":m["disagreement"],
                 })
@@ -147,7 +147,7 @@ def main():
                     "selected_alpha":alpha,
                     "inner_worst_city_loss_pp":float(best.worst_city_loss_pp),
                     "inner_mean_accuracy":float(best.mean_accuracy),
-                    "inner_mean_pier":float(best.mean_pier),
+                    "inner_mean_zoning_sensitivity":float(best.mean_zoning_sensitivity),
                 })
 
             curve["outer_city"]=outer_city
@@ -170,10 +170,10 @@ def main():
             "mean_accuracy_change_pp":g.accuracy_change_pp.mean(),
             "worst_outer_accuracy_change_pp":g.accuracy_change_pp.min(),
             "cities_within_realized_constraint":int((g.accuracy_change_pp>=-delta-1e-12).sum()),
-            "mean_baseline_pier":g.baseline_pier.mean(),
-            "mean_selected_pier":g.selected_pier.mean(),
-            "mean_pier_relative_reduction":g.pier_relative_reduction.mean(),
-            "cities_pier_reduced":int((g.selected_pier<g.baseline_pier).sum()),
+            "mean_baseline_zoning_sensitivity":g.baseline_zoning_sensitivity.mean(),
+            "mean_selected_zoning_sensitivity":g.selected_zoning_sensitivity.mean(),
+            "mean_zoning_sensitivity_relative_reduction":g.zoning_sensitivity_relative_reduction.mean(),
+            "cities_zoning_sensitivity_reduced":int((g.selected_zoning_sensitivity<g.baseline_zoning_sensitivity).sum()),
             "mean_baseline_ctw":g.baseline_ctw.mean(),
             "mean_selected_ctw":g.selected_ctw.mean(),
             "cities_ctw_reduced":int((g.selected_ctw<g.baseline_ctw).sum()),
