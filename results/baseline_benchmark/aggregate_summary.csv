@@ -1,4 +1,4 @@
-model,strategy,mean_accuracy,mean_balanced_accuracy,mean_macro_f1,mean_pier,mean_disagreement,mean_correct_to_wrong,mean_wrong_to_correct,min_city_accuracy
+model,strategy,mean_accuracy,mean_balanced_accuracy,mean_macro_f1,mean_zoning_sensitivity,mean_disagreement,mean_correct_to_wrong,mean_wrong_to_correct,min_city_accuracy
 extra_trees,canonical_only,0.3980784567909809,0.32799762182857556,0.22317844804609357,0.12093303613689138,0.275771646721726,0.05940684882556217,0.06152618731132921,0.29411764705882354
 extra_trees,multi_zoning_augmentation,0.40218822183376546,0.3400372803265758,0.22299762181632982,0.11906292985080466,0.277746645016869,0.061831494022747145,0.05723143582805752,0.29774872912127814
 extra_trees,whole_patch_invariant,0.39124399703276863,0.34335146169680986,0.24902414817715338,0.0,0.0,0.0,0.0,0.3320086705202312
