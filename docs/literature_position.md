@@ -18,7 +18,7 @@ For patch i and zoning z,
 
 C_i(z) = I(ŷ_i(z) = y_i).
 
-A patch contributes to PIER when its prediction is correct under at least one zoning and incorrect under at least one other zoning.
+A patch is considered sensitive to zoning when its prediction is correct under at least one zoning and incorrect under at least one other zoning.
 
 This quantity differs from changes in mean accuracy because opposite location specific transitions can cancel when results are aggregated.
 
@@ -28,7 +28,7 @@ The current contribution can therefore be stated as:
 
 > The study measures zoning sensitivity through changes in prediction correctness at fixed physical locations and selects the spatial weighting parameter under a city specific accuracy limit.
 
-The ten city analysis provides the empirical evidence for this formulation. Under the 0.5 percentage point accuracy limit, PIER decreases in all ten outer cities and all ten remain within the specified accuracy loss.
+The ten city analysis provides the empirical evidence for this formulation. Under the 0.5 percentage point accuracy limit, zoning sensitivity decreases in all ten outer cities and all ten remain within the specified accuracy loss.
 
 ## Closest literature
 
