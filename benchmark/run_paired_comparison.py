@@ -52,7 +52,7 @@ def indicators(pred_matrix, truth):
     ctw = canon & (~alt).any(1)
     wtc = (~canon) & alt.any(1)
     return {
-        "pier": exposed.astype(np.int8),
+        "zoning_sensitivity": exposed.astype(np.int8),
         "disagreement": disagree.astype(np.int8),
         "correct_to_wrong": ctw.astype(np.int8),
         "wrong_to_correct": wtc.astype(np.int8),
@@ -134,15 +134,15 @@ def main():
                 "continuous_balanced_accuracy":balanced_accuracy_score(cy,cp[:,0]),
                 "hard_macro_f1":f1_score(hy,hp[:,0],average="macro",zero_division=0),
                 "continuous_macro_f1":f1_score(cy,cp[:,0],average="macro",zero_division=0),
-                "hard_pier":hi["pier"].mean(),
-                "continuous_pier":ci["pier"].mean(),
+                "hard_zoning_sensitivity":hi["zoning_sensitivity"].mean(),
+                "continuous_zoning_sensitivity":ci["zoning_sensitivity"].mean(),
                 "hard_disagreement":hi["disagreement"].mean(),
                 "continuous_disagreement":ci["disagreement"].mean(),
                 "hard_correct_to_wrong":hi["correct_to_wrong"].mean(),
                 "continuous_correct_to_wrong":ci["correct_to_wrong"].mean(),
             })
 
-            for metric in ("canonical_correct","pier","disagreement","correct_to_wrong","wrong_to_correct"):
+            for metric in ("canonical_correct","zoning_sensitivity","disagreement","correct_to_wrong","wrong_to_correct"):
                 point,lo,high=bootstrap_diff(hi[metric],ci[metric],rng)
                 cirows.append({
                     "city":city,
@@ -158,7 +158,7 @@ def main():
             tmp["city"]=city
             tmp["model"]=model_name
             tmp["label"]=hy
-            for m in ("pier","disagreement","correct_to_wrong","wrong_to_correct","canonical_correct"):
+            for m in ("zoning_sensitivity","disagreement","correct_to_wrong","wrong_to_correct","canonical_correct"):
                 tmp[f"hard_{m}"]=hi[m]
                 tmp[f"continuous_{m}"]=ci[m]
             sample_rows.append(tmp)
@@ -174,14 +174,14 @@ def main():
              hard_accuracy=("hard_accuracy","mean"),
              continuous_accuracy=("continuous_accuracy","mean"),
              mean_accuracy_diff_pp=("accuracy_diff_pp","mean"),
-             hard_pier=("hard_pier","mean"),
-             continuous_pier=("continuous_pier","mean"),
+             hard_zoning_sensitivity=("hard_zoning_sensitivity","mean"),
+             continuous_zoning_sensitivity=("continuous_zoning_sensitivity","mean"),
              hard_disagreement=("hard_disagreement","mean"),
              continuous_disagreement=("continuous_disagreement","mean"),
              hard_correct_to_wrong=("hard_correct_to_wrong","mean"),
              continuous_correct_to_wrong=("continuous_correct_to_wrong","mean"),
          ))
-    agg["pier_relative_reduction"]=(agg.hard_pier-agg.continuous_pier)/agg.hard_pier
+    agg["zoning_sensitivity_relative_reduction"]=(agg.hard_zoning_sensitivity-agg.continuous_zoning_sensitivity)/agg.hard_zoning_sensitivity
     agg["disagreement_relative_reduction"]=(agg.hard_disagreement-agg.continuous_disagreement)/agg.hard_disagreement
     agg["correct_to_wrong_relative_reduction"]=(agg.hard_correct_to_wrong-agg.continuous_correct_to_wrong)/agg.hard_correct_to_wrong
     agg.to_csv(out/"aggregate_summary.csv",index=False)
