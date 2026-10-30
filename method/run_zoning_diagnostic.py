@@ -87,7 +87,7 @@ def main():
             "mean_zoning_accuracy":float(np.mean(list(z_acc.values()))),
             "worst_zoning_accuracy":float(np.min(list(z_acc.values()))),
             "canonical_to_worst_drop_pp":100*(z_acc["z0"]-np.min(list(z_acc.values()))),
-            "pier":float(exposed.mean()),
+            "zoning_sensitivity":float(exposed.mean()),
             "prediction_disagreement":float(disagree.mean()),
             "canonical_correct_any_alt_wrong_rate_all":float(cw_any.mean()),
             "canonical_wrong_any_alt_correct_rate_all":float(wc_any.mean()),
@@ -118,7 +118,7 @@ def main():
         tmp["city"]=test_city
         tmp["label"]=truth
         tmp["canonical_correct"]=canonical_correct.astype(int)
-        tmp["pier_exposed"]=exposed.astype(int)
+        tmp["zoning_sensitivity_exposed"]=exposed.astype(int)
         tmp["prediction_disagreement"]=disagree.astype(int)
         tmp["canonical_correct_any_alt_wrong"]=cw_any.astype(int)
         tmp["canonical_wrong_any_alt_correct"]=wc_any.astype(int)
@@ -131,7 +131,7 @@ def main():
                 "label":int(label),
                 "n":int(m.sum()),
                 "canonical_accuracy":float(canonical_correct[m].mean()),
-                "pier":float(exposed[m].mean()),
+                "zoning_sensitivity":float(exposed[m].mean()),
                 "prediction_disagreement":float(disagree[m].mean()),
                 "canonical_correct_any_alt_wrong_rate_all":float(cw_any[m].mean()),
                 "canonical_wrong_any_alt_correct_rate_all":float(wc_any[m].mean()),
@@ -152,11 +152,11 @@ def main():
         "mean_canonical_accuracy":city.canonical_accuracy.mean(),
         "mean_worst_zoning_accuracy":city.worst_zoning_accuracy.mean(),
         "mean_drop_pp":city.canonical_to_worst_drop_pp.mean(),
-        "mean_pier":city.pier.mean(),
+        "mean_zoning_sensitivity":city.zoning_sensitivity.mean(),
         "mean_prediction_disagreement":city.prediction_disagreement.mean(),
         "mean_canonical_correct_any_alt_wrong_rate_all":city.canonical_correct_any_alt_wrong_rate_all.mean(),
         "mean_canonical_wrong_any_alt_correct_rate_all":city.canonical_wrong_any_alt_correct_rate_all.mean(),
-        "cities_pier_ge_5pct":int((city.pier>=0.05).sum()),
+        "cities_zoning_sensitivity_ge_5pct":int((city.zoning_sensitivity>=0.05).sum()),
     }])
     overall.to_csv(out/"overall_summary.csv",index=False)
 
