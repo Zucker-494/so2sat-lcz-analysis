@@ -24,7 +24,7 @@ So2Sat LCZ42:
 
 ## Main measure
 
-Partition Induced Error Rate (PIER) records whether the correctness of a prediction for the same physical patch changes across zoning configurations.
+Zoning sensitivity is measured by whether prediction correctness for the same physical patch changes across zoning configurations.
 
 For patch i and zoning z,
 
@@ -34,26 +34,26 @@ and
 
 S_i = I(max_z C_i(z) ≠ min_z C_i(z)).
 
-PIER is the mean of S_i across patches.
+The reported proportion is the mean of S_i across patches.
 
 The analysis also reports correct to wrong transitions, prediction disagreement, accuracy, balanced accuracy, and macro F1.
 
 ## Validation across cities
 
-Model selection is nested by city. For each outer city, the remaining cities are used to select the weighting parameter α. The selected value minimizes PIER while limiting the largest accuracy loss observed among the inner validation cities.
+Model selection is nested by city. For each outer city, the remaining cities are used to select the weighting parameter α. The selected value minimizes zoning sensitivity while limiting the largest accuracy loss observed among the inner validation cities.
 
 The primary accuracy loss limit is 0.5 percentage points.
 
 ## Main result
 
-For HistGradientBoosting with the 0.5 percentage point limit, all ten outer cities remain within the specified accuracy loss. PIER decreases in all ten cities.
+For HistGradientBoosting with the 0.5 percentage point limit, all ten outer cities remain within the specified accuracy loss. zoning sensitivity decreases in all ten cities.
 
 Mean values across cities:
 
 - accuracy: 53.205% to 53.390%;
 - balanced accuracy: 43.779% to 44.228%;
 - macro F1: 34.614% to 34.853%;
-- PIER: 31.605% to 27.856%;
+- zoning-sensitive patches: 31.605% to 27.856%;
 - correct to wrong rate: 16.672% to 14.504%;
 - prediction disagreement: 42.043% to 37.281%.
 
