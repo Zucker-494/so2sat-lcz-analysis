@@ -235,7 +235,7 @@ clean_axis(ax, grid_axis="both")
 fig.suptitle(
     "City-level accuracy and zoning sensitivity",
     fontsize=12,
-    y=0.975,
+    y=0.965,
 )
 
 ax.set_xlim(min(-0.62, x.min() - 0.12), max(1.05, x.max() + 0.16))
@@ -275,13 +275,13 @@ ax.legend(
     frameon=False,
     ncol=3,
     loc="lower center",
-    bbox_to_anchor=(0.5, 1.085),
+    bbox_to_anchor=(0.5, 1.035),
     borderaxespad=0.0,
     columnspacing=1.4,
     handletextpad=0.5,
 )
 
-fig.subplots_adjust(left=0.15, right=0.98, bottom=0.13, top=0.75)
+fig.subplots_adjust(left=0.15, right=0.98, bottom=0.13, top=0.80)
 fig.savefig(OUT / "fig2_city_results.png", **SAVE)
 plt.close(fig)
 
