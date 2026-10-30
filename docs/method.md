@@ -39,11 +39,11 @@ Instability for patch i is
 
 S_i = I(max_z C_i(z) ≠ min_z C_i(z)).
 
-The study reports
+The study reports the proportion
 
-PIER = (1 / N) Σ_i S_i.
+(1 / N) Σ_i S_i.
 
-PIER is the proportion of fixed patches whose correct or incorrect status changes across the nine zonings.
+This is the proportion of fixed patches whose prediction correctness changes across the nine zonings.
 
 Two additional measures describe the same sensitivity:
 
@@ -71,7 +71,7 @@ For each outer city:
 3. α is evaluated from 0 to 1 in increments of 0.05;
 4. accuracy loss relative to α = 0 is calculated separately for every inner validation city;
 5. α is retained when the largest city specific accuracy loss is no greater than δ;
-6. among retained values, the α with the lowest mean PIER is selected;
+6. among retained values, the α with the lowest mean zoning sensitivity is selected;
 7. the selected α is evaluated in the outer city.
 
 The primary value is δ = 0.5 percentage points. A value of 1.0 percentage point is reported as a secondary analysis.
@@ -82,14 +82,14 @@ The earlier analysis limited the mean accuracy loss across inner cities. The fin
 
 For HistGradientBoosting at δ = 0.5 percentage points:
 
-| Selection rule | Mean α | Mean accuracy change in outer cities | Largest accuracy decrease | Cities within the 0.5 point limit | Mean PIER | PIER change | Cities with lower PIER |
+| Selection rule | Mean α | Mean accuracy change in outer cities | Largest accuracy decrease | Cities within the 0.5 point limit | Mean zoning sensitivity | Zoning sensitivity change | Cities with lower zoning sensitivity |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Mean accuracy rule | 0.64 | -0.655 pp | -6.526 pp | 6/10 | 10.61% | -20.99 pp | 10/10 |
 | Maximum city loss rule | 0.15 | +0.184 pp | -0.215 pp | 10/10 | 27.86% | -3.75 pp | 10/10 |
 
 The mean accuracy rule selected much larger α values. Santiago showed the largest accuracy decrease, at 6.526 percentage points.
 
-Using the maximum city loss rule kept all ten outer cities within the specified limit. PIER still decreased in every city.
+Using the maximum city loss rule kept all ten outer cities within the specified limit. Zoning sensitivity still decreased in every city.
 
 ## Main ten city result
 
@@ -101,24 +101,24 @@ With δ = 0.5 percentage points:
 - largest city specific accuracy decrease: 0.215 pp;
 - mean balanced accuracy: 43.779% to 44.228% (+0.449 pp);
 - mean macro F1: 34.614% to 34.853% (+0.239 pp);
-- mean PIER: 31.605% to 27.856% (-3.748 pp);
+- mean zoning sensitivity: 31.605% to 27.856% (-3.748 pp);
 - mean correct to wrong rate: 16.672% to 14.504% (-2.168 pp);
 - mean disagreement: 42.043% to 37.281% (-4.763 pp).
 
-All ten cities remain within the 0.5 percentage point accuracy limit. PIER and correct to wrong rate decrease in all ten cities.
+All ten cities remain within the 0.5 percentage point accuracy limit. Zoning sensitivity and correct to wrong rate decrease in all ten cities.
 
 City bootstrap 95% intervals for the selected value minus α = 0 are:
 
 - accuracy: [-0.029, +0.403] pp;
 - balanced accuracy: [+0.141, +0.715] pp;
 - macro F1: [+0.024, +0.476] pp;
-- PIER: [-4.997, -2.548] pp;
+- zoning sensitivity: [-4.997, -2.548] pp;
 - correct to wrong rate: [-2.870, -1.533] pp;
 - disagreement: [-6.410, -3.240] pp.
 
 Exact sign tests across the ten cities give:
 
-- PIER: 10/10 decreases, p = 0.00098;
+- zoning sensitivity: 10/10 decreases, p = 0.00098;
 - correct to wrong rate: 10/10 decreases, p = 0.00098;
 - disagreement: 10/10 decreases, p = 0.00098;
 - balanced accuracy: 9/10 increases, p = 0.01074;
@@ -126,13 +126,13 @@ Exact sign tests across the ten cities give:
 
 ## LCZ class results
 
-PIER decreases for every built LCZ class represented in the outer city results.
+Zoning sensitivity decreases for every built LCZ class represented in the outer city results.
 
 Mean accuracy changes are small. Decreases occur for LCZ 1 (-0.132 pp), LCZ 2 (-0.079 pp), and LCZ 7 (-0.016 pp). Other built classes show small increases.
 
 ## Secondary accuracy limit
 
-With δ = 1.0 percentage point, all ten cities also remain within the specified accuracy loss. Mean PIER decreases from 31.605% to 25.661%.
+With δ = 1.0 percentage point, all ten cities also remain within the specified accuracy loss. Mean zoning sensitivity decreases from 31.605% to 25.661%.
 
 ## Contribution
 
