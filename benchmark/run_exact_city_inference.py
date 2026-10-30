@@ -16,7 +16,7 @@ metrics = [
     ("accuracy", "higher"),
     ("balanced_accuracy", "higher"),
     ("macro_f1", "higher"),
-    ("pier", "lower"),
+    ("zoning_sensitivity", "lower"),
     ("correct_to_wrong", "lower"),
     ("disagreement", "lower"),
 ]
