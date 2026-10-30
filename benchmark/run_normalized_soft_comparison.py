@@ -40,12 +40,12 @@ def ordered(df,city,col,views):
 
 def flags(pred,y):
     corr=pred==y[:,None]
-    pier=corr.any(1)&(~corr).any(1)
+    zoning_sensitivity=corr.any(1)&(~corr).any(1)
     dis=np.array([len(set(r.tolist()))>1 for r in pred])
     canon=corr[:,0]; alt=corr[:,1:]
     return {
         "canonical_correct":canon.astype(np.int8),
-        "pier":pier.astype(np.int8),
+        "zoning_sensitivity":zoning_sensitivity.astype(np.int8),
         "disagreement":dis.astype(np.int8),
         "correct_to_wrong":(canon&(~alt).any(1)).astype(np.int8),
         "wrong_to_correct":((~canon)&alt.any(1)).astype(np.int8),
@@ -104,7 +104,7 @@ def main():
                 "soft_balanced_accuracy":balanced_accuracy_score(sy,sp[:,0]),
                 "hard_macro_f1":f1_score(hy,hp[:,0],average="macro",zero_division=0),
                 "soft_macro_f1":f1_score(sy,sp[:,0],average="macro",zero_division=0),
-                "hard_pier":hf["pier"].mean(),"soft_pier":sf["pier"].mean(),
+                "hard_zoning_sensitivity":hf["zoning_sensitivity"].mean(),"soft_zoning_sensitivity":sf["zoning_sensitivity"].mean(),
                 "hard_disagreement":hf["disagreement"].mean(),"soft_disagreement":sf["disagreement"].mean(),
                 "hard_correct_to_wrong":hf["correct_to_wrong"].mean(),"soft_correct_to_wrong":sf["correct_to_wrong"].mean(),
             })
@@ -123,12 +123,12 @@ def main():
         hard_accuracy=("hard_accuracy","mean"),soft_accuracy=("soft_accuracy","mean"),
         hard_balanced_accuracy=("hard_balanced_accuracy","mean"),soft_balanced_accuracy=("soft_balanced_accuracy","mean"),
         hard_macro_f1=("hard_macro_f1","mean"),soft_macro_f1=("soft_macro_f1","mean"),
-        hard_pier=("hard_pier","mean"),soft_pier=("soft_pier","mean"),
+        hard_zoning_sensitivity=("hard_zoning_sensitivity","mean"),soft_zoning_sensitivity=("soft_zoning_sensitivity","mean"),
         hard_disagreement=("hard_disagreement","mean"),soft_disagreement=("soft_disagreement","mean"),
         hard_correct_to_wrong=("hard_correct_to_wrong","mean"),soft_correct_to_wrong=("soft_correct_to_wrong","mean")
     ))
     agg["accuracy_diff_pp"]=100*(agg.soft_accuracy-agg.hard_accuracy)
-    agg["pier_relative_reduction"]=(agg.hard_pier-agg.soft_pier)/agg.hard_pier
+    agg["zoning_sensitivity_relative_reduction"]=(agg.hard_zoning_sensitivity-agg.soft_zoning_sensitivity)/agg.hard_zoning_sensitivity
     agg["disagreement_relative_reduction"]=(agg.hard_disagreement-agg.soft_disagreement)/agg.hard_disagreement
     agg["correct_to_wrong_relative_reduction"]=(agg.hard_correct_to_wrong-agg.soft_correct_to_wrong)/agg.hard_correct_to_wrong
     agg.to_csv(out/"aggregate_summary.csv",index=False)
